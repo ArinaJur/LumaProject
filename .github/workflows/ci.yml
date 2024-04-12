@@ -45,9 +45,9 @@ jobs:
             **/surefire-reports/emailable-report.html
 
       - name: Create test report
-          uses: dorny/test-reporter@v1
-          if: success() || failure()
-          with:
-            name: Unit tests Report
-            path: target/surefire-reports/TEST-*.xml
-            reporter: java-junit
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Unit tests Report
+          path: target/surefire-reports/TEST-*.xml
+          reporter: java-junit
