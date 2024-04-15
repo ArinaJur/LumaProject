@@ -1,23 +1,58 @@
 package runner;
 
+import com.microsoft.playwright.*;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
 
 public abstract class BaseTest {
-        private WebDriver driver;
+    private WebDriver driver;
+    private final Playwright playwright = Playwright.create();
+    private final Browser browser = BaseUtils.createPWBrowser(playwright);
+    private BrowserContext context;
+    private Page page;
 
-        @BeforeMethod
-        protected void beforeMethod() {
-            driver = BaseUtils.createDriver();
+    @BeforeSuite
+    void createPlaywrightBrowser() {
+        if(!browser.isConnected()) {
+            System.exit(1);
         }
+    }
 
-        @AfterMethod
-        protected void afterMethod() {
+    @BeforeMethod
+    protected void beforeMethod() {
+        driver = BaseUtils.createDriver();
+        context = BaseUtils.createContext(browser);
+        page = context.newPage();
+    }
+
+    @AfterMethod
+    protected void afterMethod() {
+        if (driver != null) {
             driver.quit();
         }
-
-        protected WebDriver getDriver() {
-            return driver;
+        if (page != null) {
+            page.close();
         }
+        if (context != null) {
+            context.close();
+        }
+    }
+
+    @AfterSuite(alwaysRun = true)
+    void closeBrowser() {
+        if (browser.isConnected()) {
+            browser.close();
+        }
+        if(playwright != null) {
+            playwright.close();
+        }
+    }
+
+    protected WebDriver getDriver() {
+        return driver;
+    }
+
+    protected Page getPage() {
+        return page;
+    }
 }

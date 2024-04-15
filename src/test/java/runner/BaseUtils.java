@@ -1,5 +1,9 @@
 package runner;
 
+import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserContext;
+import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.Playwright;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,10 +15,10 @@ import java.util.Properties;
 
 public final class BaseUtils {
     private static final String ENV_CHROME_OPTIONS = "CHROME_OPTIONS";
+    private static final String ENV_BROWSER_OPTIONS = "BROWSER_OPTIONS";
 
-    static final String PREFIX_PROP = "default.";
-
-    private static final String PROP_CHROME_OPTIONS = PREFIX_PROP + ENV_CHROME_OPTIONS.toLowerCase();
+    private static final String PREFIX_PROP = "default.";
+    private static final String PROP_CHROME_OPTIONS = PREFIX_PROP + ENV_CHROME_OPTIONS.trim().toLowerCase();
 
     private static Properties properties;
 
@@ -23,6 +27,12 @@ public final class BaseUtils {
             properties = new Properties();
             if (isServerRun()) {
                 properties.setProperty(PROP_CHROME_OPTIONS, System.getenv(ENV_CHROME_OPTIONS));
+                if (System.getenv(ENV_BROWSER_OPTIONS) != null) {
+                    for (String option : System.getenv(ENV_BROWSER_OPTIONS).split(";")) {
+                        String[] browserOptionArr = option.split("=");
+                        properties.setProperty(browserOptionArr[0], browserOptionArr[1]);
+                    }
+                }
             } else {
                 try {
                     InputStream inputStream = BaseUtils.class.getClassLoader().getResourceAsStream("local.properties");
@@ -32,12 +42,18 @@ public final class BaseUtils {
                         System.exit(1);
                     }
                     properties.load(inputStream);
-                } catch (IOException ignore) {}
+                } catch (IOException ignore) {
+                }
             }
         }
     }
 
+    static boolean isServerRun() {
+        return System.getenv("CI_RUN") != null;
+    }
+
     private static final ChromeOptions chromeOptions;
+
     static {
         initProperties();
 
@@ -56,13 +72,25 @@ public final class BaseUtils {
         return properties;
     }
 
-    static boolean isServerRun() {
-        return System.getenv("CI_RUN") != null;
-    }
-
     static WebDriver createDriver() {
         WebDriver driver = new ChromeDriver(chromeOptions);
 
         return driver;
+    }
+
+    private static final boolean IS_HEADLESS = Boolean.parseBoolean(properties.getProperty("isHeadless").trim());
+    private static final double SLOWMO = Double.parseDouble(properties.getProperty("slowMo").trim());
+    private static final int SCREEN_SIZE_WIDTH = Integer.parseInt(properties.getProperty("screenWidth").trim());
+    private static final int SCREEN_SIZE_HEIGHT = Integer.parseInt(properties.getProperty("screenHeight").trim());
+
+    static Browser createPWBrowser(Playwright playwright) {
+        return playwright.chromium()
+                .launch(new BrowserType.LaunchOptions()
+                        .setHeadless(IS_HEADLESS).setSlowMo(SLOWMO));
+    }
+
+    static BrowserContext createContext(Browser browser) {
+        return browser.newContext(new Browser.NewContextOptions()
+                .setViewportSize(SCREEN_SIZE_WIDTH, SCREEN_SIZE_HEIGHT));
     }
 }

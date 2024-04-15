@@ -4,7 +4,7 @@ import runner.BaseTest;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-public class FirstTest extends BaseTest {
+public class SecondTest extends BaseTest {
 
     @Test
     public void testSelenium() {
