@@ -3,10 +3,7 @@ package api;
 import okhttp3.*;
 import runner.BaseTest;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -23,12 +20,15 @@ public class MagentoApi extends BaseTest {
     private String token;
 
     public MagentoApi() throws IOException {
-        props = new Properties();
+/*        props = new Properties();
         InputStream propFile = getClass().getClassLoader().getResourceAsStream("local.properties");
+        if (propFile == null) {
+            throw new FileNotFoundException("local.properties file not found in the classpath");
+        }
         props.load(propFile);
-        assert propFile != null;
-        propFile.close();
+        propFile.close();*/
     }
+
 
     public static synchronized MagentoApi getInstance() throws IOException {
         if (instance == null) {
@@ -91,8 +91,10 @@ public class MagentoApi extends BaseTest {
     }
 
     private String getNewToken() throws IOException {
-        String username = props.getProperty("username");
-        String password = props.getProperty("password");
+//        String username = props.getProperty("username");
+//        String password = props.getProperty("password");
+        String username = "tester1234@gmail.com";
+        String password = "tester1234!";
         String json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}";
         RequestBody body = RequestBody.create(json, JSON);
         Request request = new Request.Builder()
