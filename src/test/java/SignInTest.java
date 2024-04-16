@@ -3,8 +3,6 @@ import com.microsoft.playwright.options.AriaRole;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-
 
 public class SignInTest extends BaseTest {
 
@@ -29,13 +27,11 @@ public class SignInTest extends BaseTest {
         getPage().getByLabel("Password").fill("123456789vk_");
         getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sign In")).click();
 
-        try {
-            getPage().waitForFunction("document.querySelector('aria[BANNER]').innerText.includes('Welcome, tester3 tester3!')", new Page.WaitForFunctionOptions().setTimeout(5000));
-        } catch (PlaywrightException e) {
-            System.out.println("Element not found: " + e.getMessage());
-        }
+        Locator welcomeBanner = getPage().getByRole(AriaRole.BANNER).getByText("Welcome, tester3 tester3!");
+        // Extended timeout for CI environments
+        welcomeBanner.waitFor(new Locator.WaitForOptions().setTimeout(10000));
 
-        assertThat(getPage().getByRole(AriaRole.BANNER).getByText("Welcome, tester3 tester3!")).isVisible();
+        assert welcomeBanner.isVisible();
     }
 
     private void handleOverlays(Page page) {
