@@ -1,6 +1,5 @@
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.AriaRole;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -13,9 +12,7 @@ public class SignInTest extends BaseTest {
     public void testSingInPW() {
         getPage().navigate("https://magento.softwaretestingboard.com/");
 
-        getPage().getByLabel("Diese Website bittet um die").locator("div")
-                .filter(new Locator.FilterOptions().setHasText("Herzlich willkommenDiese")).nth(1).click();
-        getPage().getByLabel("Einwilligen", new Page.GetByLabelOptions().setExact(true)).click();
+        handleOverlays(getPage());
 
         getPage().getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("\n" +
                 "Sign In ")).click();
@@ -27,6 +24,14 @@ public class SignInTest extends BaseTest {
         getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sign In")).click();
 
         assertThat(getPage().getByRole(AriaRole.BANNER).getByText("Welcome, tester3 tester3!")).isVisible();
+    }
 
+    private void handleOverlays(Page page) {
+        String consentButtonSelector = "body > div.fc-consent-root > div.fc-dialog-container > div.fc-dialog.fc-choice-dialog > div.fc-footer-buttons-container > div.fc-footer-buttons > button.fc-button.fc-cta-consent.fc-primary-button > p";
+        page.waitForSelector(consentButtonSelector);
+
+        if (page.isVisible(consentButtonSelector)) {
+            page.click(consentButtonSelector);
+        }
     }
 }
