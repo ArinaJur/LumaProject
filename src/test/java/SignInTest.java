@@ -16,19 +16,24 @@ public class SignInTest extends BaseTest {
 
         if (getPage().isVisible(consentButtonSelector)) {
             handleOverlays(getPage());
+            getPage().getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("\n" +
+                    "Sign In ")).click();
         } else {
             getPage().getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("\n" +
                     "Sign In ")).click();
         }
-
-        getPage().getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("\n" +
-                "Sign In ")).click();
 
         getPage().getByLabel("Email", new Page.GetByLabelOptions().setExact(true)).click();
         getPage().getByLabel("Email", new Page.GetByLabelOptions().setExact(true)).fill("Tester3@gmail.com");
         getPage().getByLabel("Password").click();
         getPage().getByLabel("Password").fill("123456789vk_");
         getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sign In")).click();
+
+        try {
+            getPage().waitForFunction("document.querySelector('aria[BANNER]').innerText.includes('Welcome, tester3 tester3!')", new Page.WaitForFunctionOptions().setTimeout(5000));
+        } catch (PlaywrightException e) {
+            System.out.println("Element not found: " + e.getMessage());
+        }
 
         assertThat(getPage().getByRole(AriaRole.BANNER).getByText("Welcome, tester3 tester3!")).isVisible();
     }
