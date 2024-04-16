@@ -12,7 +12,14 @@ public class SignInTest extends BaseTest {
     public void testSingInPW() {
         getPage().navigate("https://magento.softwaretestingboard.com/");
 
-        handleOverlays(getPage());
+        String consentButtonSelector = "body > div.fc-consent-root > div.fc-dialog-container > div.fc-dialog.fc-choice-dialog > div.fc-footer-buttons-container > div.fc-footer-buttons > button.fc-button.fc-cta-consent.fc-primary-button > p";
+
+        if (getPage().isVisible(consentButtonSelector)) {
+            handleOverlays(getPage());
+        } else {
+            getPage().getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("\n" +
+                    "Sign In ")).click();
+        }
 
         getPage().getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("\n" +
                 "Sign In ")).click();
@@ -30,8 +37,9 @@ public class SignInTest extends BaseTest {
         String consentButtonSelector = "body > div.fc-consent-root > div.fc-dialog-container > div.fc-dialog.fc-choice-dialog > div.fc-footer-buttons-container > div.fc-footer-buttons > button.fc-button.fc-cta-consent.fc-primary-button > p";
         page.waitForSelector(consentButtonSelector);
 
-        if (page.isVisible(consentButtonSelector)) {
-            page.click(consentButtonSelector);
+        if (!page.isVisible(consentButtonSelector)) {
+            return;
         }
+        page.click(consentButtonSelector);
     }
 }
