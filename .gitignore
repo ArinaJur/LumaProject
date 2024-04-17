@@ -185,8 +185,8 @@ buildNumber.properties
 hs_err_pid*
 /.idea/libraries/
 
-#local.properties
-#src/test/resources/local.properties
+local.properties
+src/test/resources/local.properties
 
 ### STS ###
 .apt_generated

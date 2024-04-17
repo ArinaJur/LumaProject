@@ -1,5 +1,6 @@
 package com.rover.model;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,45 +12,53 @@ public class SignUpPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(id = "firstname")
+    @FindBy(xpath = "//input[@id='firstname']")
     private WebElement firstNameInput;
 
-    @FindBy(id = "lastname")
+    @FindBy(xpath = "//input[@id='lastname']")
     private WebElement lastNameInput;
 
-    @FindBy(id = "email_address")
+    @FindBy(xpath = "//input[@id='email_address']")
     private WebElement emailInput;
 
-    @FindBy(id = "password")
+    @FindBy(xpath = "//input[@id='password']")
     private WebElement passwordInput;
 
-    @FindBy(id = "password-confirmation")
+    @FindBy(xpath = "//input[@id='password-confirmation']")
     private WebElement confirmPasswordInput;
 
-    @FindBy(css = "button[title='Create an Account']")
+    @FindBy(xpath = "//button[@title='Create an Account']")
     private WebElement createAccountButton;
 
-    public void enterFirstName(String firstName) {
+    public SignUpPage enterFirstName(String firstName) {
         firstNameInput.sendKeys(firstName);
+        return this;
     }
 
-    public void enterLastName(String lastName) {
+    public SignUpPage enterLastName(String lastName) {
         lastNameInput.sendKeys(lastName);
+        return this;
     }
 
-    public void enterEmail(String email) {
+    public SignUpPage enterEmail(String email) {
         emailInput.sendKeys(email);
+        return this;
     }
 
-    public void enterPassword(String password) {
+    public SignUpPage enterPassword(String password) {
         passwordInput.sendKeys(password);
+        return this;
     }
 
-    public void enterConfirmPassword(String confirmPassword) {
+    public SignUpPage enterConfirmPassword(String confirmPassword) {
         confirmPasswordInput.sendKeys(confirmPassword);
+        return this;
     }
 
-    public void clickCreateAccountButton() {
+    public void clickCreateAccountButton(WebDriver driver) {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView(true);",
+                createAccountButton);
         createAccountButton.click();
     }
 }
