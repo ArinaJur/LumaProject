@@ -8,7 +8,7 @@ import runner.BaseTest;
 public class SignInTest extends BaseTest {
 
     @Test
-    public void testSingInPW() {
+    public void testSingInPW() throws InterruptedException {
         getPage().navigate("https://magento.softwaretestingboard.com/");
 
         String consentButtonSelector = "body > div.fc-consent-root > div.fc-dialog-container > div.fc-dialog.fc-choice-dialog > div.fc-footer-buttons-container > div.fc-footer-buttons > button.fc-button.fc-cta-consent.fc-primary-button > p";
@@ -30,6 +30,8 @@ public class SignInTest extends BaseTest {
         getPage().locator(" span.not-logged-in")
                 .getByText("Click “Write for us” link in the footer to submit a guest post").isVisible();
 
+
+        Thread.sleep(3000);
         String text = getPage().locator("body>div.page-wrapper>header>div.panel.wrapper>div>ul")
                 .innerText().substring(0,25);
 
