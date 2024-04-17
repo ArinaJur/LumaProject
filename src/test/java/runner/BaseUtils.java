@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Duration;
 import java.util.Properties;
 
 public final class BaseUtils {
@@ -74,7 +75,7 @@ public final class BaseUtils {
 
     static WebDriver createDriver() {
         WebDriver driver = new ChromeDriver(chromeOptions);
-
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         return driver;
     }
 
