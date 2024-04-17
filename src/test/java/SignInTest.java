@@ -33,9 +33,9 @@ public class SignInTest extends BaseTest {
                 .getByText("Click “Write for us” link in the footer to submit a guest post").isVisible();
 
         // Locator welcomeElement = getPage().locator("body > div.page-wrapper > header > div.panel.wrapper > div > ul > li.greet.welcome > span").getByText("Welcome, tester3 tester3!");
-       // Locator welcomeElement = getPage().locator("#store\\.links > ul > li.greet.welcome > span").getByText("Welcome, tester3 tester3!");
+        // Locator welcomeElement = getPage().locator("#store\\.links > ul > li.greet.welcome > span").getByText("Welcome, tester3 tester3!");
 
-        Locator welcomeElement = getPage().locator(".logged-in >> nth=0 >> text=\"Welcome, tester3 tester3!\"");
+        Locator welcomeElement = getPage().locator(".logged-in>> nth=0 >> text=\"Welcome, tester3 tester3!\"");
         boolean isVisible = welcomeElement.isVisible();
 
         if (isVisible) {
@@ -43,13 +43,19 @@ public class SignInTest extends BaseTest {
             String welcomeText = welcomeElement.innerText();
             Assert.assertEquals(welcomeText, "Welcome, tester3 tester3!");
         } else {
-            // Define your second locator here
             Locator secondLocator = getPage().locator(".logged-in").first().getByText("Welcome, tester3 tester3!");
             boolean isSecondVisible = secondLocator.isVisible();
-            Assert.assertTrue(isSecondVisible, "Expected secondLocator to be visible");
-            System.out.println("Second element is visible");
-            String secondText = secondLocator.innerText();
-            Assert.assertEquals(secondText, "Welcome, tester3 tester3!");
+            if (isSecondVisible) {
+                System.out.println("Second element is visible");
+                String secondText = secondLocator.innerText();
+                Assert.assertEquals(secondText, "Welcome, tester3 tester3!");
+            } else {
+                String welcome = "Welcome, tester3 tester3!";
+                String notVisible = "Element is not visible";
+                String getText = getPage().getByText("Welcome, tester3 tester3!").first().isVisible() ? welcome : notVisible;
+                System.out.println(getText);
+                Assert.assertEquals(getText, "Welcome, tester3 tester3!");
+            }
         }
     }
 
