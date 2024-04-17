@@ -4,12 +4,11 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class SignUpPage {
+public class SignUpPage extends BasePage {
 
     public SignUpPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     @FindBy(xpath = "//input[@id='firstname']")
@@ -55,8 +54,8 @@ public class SignUpPage {
         return this;
     }
 
-    public void clickCreateAccountButton(WebDriver driver) {
-        ((JavascriptExecutor) driver).executeScript(
+    public void clickCreateAccountButton() {
+        ((JavascriptExecutor) getDriver()).executeScript(
                 "arguments[0].scrollIntoView(true);",
                 createAccountButton);
         createAccountButton.click();
