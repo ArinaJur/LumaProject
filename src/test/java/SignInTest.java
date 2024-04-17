@@ -30,8 +30,6 @@ public class SignInTest extends BaseTest {
         getPage().locator(" span.not-logged-in")
                 .getByText("Click “Write for us” link in the footer to submit a guest post").isVisible();
 
-
-        Thread.sleep(3000);
         String text = getPage().locator("body>div.page-wrapper>header>div.panel.wrapper>div>ul")
                 .innerText().substring(0,25);
 
