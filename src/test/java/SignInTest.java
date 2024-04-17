@@ -30,10 +30,11 @@ public class SignInTest extends BaseTest {
         getPage().locator(" span.not-logged-in")
                 .getByText("Click “Write for us” link in the footer to submit a guest post").isVisible();
 
-        String text = getPage().locator("body>div.page-wrapper>header>div.panel.wrapper>div>ul")
-                .innerText().substring(0,25);
+//        Locator welcomeElement = getPage().locator("body > div.page-wrapper > header > div.panel.wrapper > div > ul > li.greet.welcome > span").getByText("Welcome, tester3 tester3!");
+        Locator welcomeElement = getPage().locator("#store\\.links > ul > li.greet.welcome > span").getByText("Welcome, tester3 tester3!");
+        String welcomeText = welcomeElement.innerText();
 
-        Assert.assertEquals(text, "Welcome, tester3 tester3!");
+        Assert.assertEquals(welcomeText, "Welcome, tester3 tester3!");
 
     }
 
