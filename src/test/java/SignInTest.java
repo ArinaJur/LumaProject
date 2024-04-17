@@ -4,6 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+import java.util.concurrent.CompletableFuture;
+
 
 public class SignInTest extends BaseTest {
 
@@ -30,12 +32,25 @@ public class SignInTest extends BaseTest {
         getPage().locator(" span.not-logged-in")
                 .getByText("Click “Write for us” link in the footer to submit a guest post").isVisible();
 
-//        Locator welcomeElement = getPage().locator("body > div.page-wrapper > header > div.panel.wrapper > div > ul > li.greet.welcome > span").getByText("Welcome, tester3 tester3!");
-        Locator welcomeElement = getPage().locator("#store\\.links > ul > li.greet.welcome > span").getByText("Welcome, tester3 tester3!");
-        String welcomeText = welcomeElement.innerText();
+        // Locator welcomeElement = getPage().locator("body > div.page-wrapper > header > div.panel.wrapper > div > ul > li.greet.welcome > span").getByText("Welcome, tester3 tester3!");
+       // Locator welcomeElement = getPage().locator("#store\\.links > ul > li.greet.welcome > span").getByText("Welcome, tester3 tester3!");
 
-        Assert.assertEquals(welcomeText, "Welcome, tester3 tester3!");
+        Locator welcomeElement = getPage().locator(".logged-in >> nth=0 >> text=\"Welcome, tester3 tester3!\"");
+        boolean isVisible = welcomeElement.isVisible();
 
+        if (isVisible) {
+            System.out.println("First element is visible");
+            String welcomeText = welcomeElement.innerText();
+            Assert.assertEquals(welcomeText, "Welcome, tester3 tester3!");
+        } else {
+            // Define your second locator here
+            Locator secondLocator = getPage().locator(".logged-in").first().getByText("Welcome, tester3 tester3!");
+            boolean isSecondVisible = secondLocator.isVisible();
+            Assert.assertTrue(isSecondVisible, "Expected secondLocator to be visible");
+            System.out.println("Second element is visible");
+            String secondText = secondLocator.innerText();
+            Assert.assertEquals(secondText, "Welcome, tester3 tester3!");
+        }
     }
 
     private void handleOverlays(Page page) {
@@ -48,3 +63,4 @@ public class SignInTest extends BaseTest {
         page.click(consentButtonSelector);
     }
 }
+
