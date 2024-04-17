@@ -34,29 +34,32 @@ public class SignInTest extends BaseTest {
 
         // Locator welcomeElement = getPage().locator("body > div.page-wrapper > header > div.panel.wrapper > div > ul > li.greet.welcome > span").getByText("Welcome, tester3 tester3!");
         // Locator welcomeElement = getPage().locator("#store\\.links > ul > li.greet.welcome > span").getByText("Welcome, tester3 tester3!");
+        Thread.sleep(3000);
+        Locator welcomeElement = getPage().locator("//div[@class='panel header']//ul[@class='header links']//li[@class='greet welcome']//span[@class='logged-in']");
+        System.out.println(welcomeElement);
+        String actual = welcomeElement.innerText();
+        Assert.assertEquals(actual, "Welcome, tester3 tester3!");
+        Assert.assertTrue(welcomeElement.isVisible());
 
-        Locator welcomeElement = getPage().locator(".logged-in>> nth=0 >> text=\"Welcome, tester3 tester3!\"");
-        boolean isVisible = welcomeElement.isVisible();
-
-        if (isVisible) {
-            System.out.println("First element is visible");
-            String welcomeText = welcomeElement.innerText();
-            Assert.assertEquals(welcomeText, "Welcome, tester3 tester3!");
-        } else {
-            Locator secondLocator = getPage().locator(".logged-in").first().getByText("Welcome, tester3 tester3!");
-            boolean isSecondVisible = secondLocator.isVisible();
-            if (isSecondVisible) {
-                System.out.println("Second element is visible");
-                String secondText = secondLocator.innerText();
-                Assert.assertEquals(secondText, "Welcome, tester3 tester3!");
-            } else {
-                String welcome = "Welcome, tester3 tester3!";
-                String notVisible = "Element is not visible";
-                String getText = getPage().getByText("Welcome, tester3 tester3!").first().isVisible() ? welcome : notVisible;
-                System.out.println(getText);
-                Assert.assertEquals(getText, "Welcome, tester3 tester3!");
-            }
-        }
+//        if (actual) {
+//            System.out.println("First element is visible");
+//            String welcomeText = welcomeElement.innerText();
+//            Assert.assertEquals(welcomeText, "Welcome, tester3 tester3!");
+//        } else {
+//            Locator secondLocator = getPage().locator(".logged-in").first().getByText("Welcome, tester3 tester3!");
+//            boolean isSecondVisible = secondLocator.isVisible();
+//            if (isSecondVisible) {
+//                System.out.println("Second element is visible");
+//                String secondText = secondLocator.innerText();
+//                Assert.assertEquals(secondText, "Welcome, tester3 tester3!");
+//            } else {
+//                String welcome = "Welcome, tester3 tester3!";
+//                String notVisible = "Element is not visible";
+//                String getText = getPage().getByText("Welcome, tester3 tester3!").first().isVisible() ? welcome : notVisible;
+//                System.out.println(getText);
+//                Assert.assertEquals(getText, "Welcome, tester3 tester3!");
+//            }
+//        }
     }
 
     private void handleOverlays(Page page) {
