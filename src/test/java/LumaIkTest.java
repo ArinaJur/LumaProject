@@ -39,7 +39,7 @@ public class LumaIkTest extends BaseTest {
     }
 
     @Test
-    public void testSingInPW() {
+    public void testSingInPW() throws InterruptedException {
         getPage().navigate("https://magento.softwaretestingboard.com/");
 
 
@@ -50,7 +50,13 @@ public class LumaIkTest extends BaseTest {
         getPage().getByLabel("Password").click();
         getPage().getByLabel("Password").fill("tester1234!");
         getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sign In")).click();
-        String text = getPage().locator(".page-header ul[class='header links']>li>span.logged-in").innerText().substring(0,23);
+        Thread.sleep(3000);
+        Thread.sleep(3000);
+        Locator element = getPage().locator(".page-header ul[class='header links']>li>span.logged-in").first();
+        element.scrollIntoViewIfNeeded();
+
+        String text = element.innerText().substring(0,23);
+//        String text = getPage().locator(".page-header ul[class='header links']>li>span.logged-in").innerText().substring(0,23);
 
         Assert.assertEquals(text, "Welcome, Tester Tester!");
     }
