@@ -1,3 +1,4 @@
+import com.microsoft.playwright.ElementHandle;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
@@ -50,11 +51,9 @@ public class LumaIkTest extends BaseTest {
         getPage().getByLabel("Password").click();
         getPage().getByLabel("Password").fill("tester1234!");
         getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sign In")).click();
-        Thread.sleep(3000);
-        Thread.sleep(3000);
-        Locator element = getPage().locator(".page-header ul[class='header links']>li>span.logged-in").first();
-        element.scrollIntoViewIfNeeded();
+        ElementHandle element = getPage().waitForSelector(".page-header ul[class='header links']>li>span.logged-in", new Page.WaitForSelectorOptions().setTimeout(60000));
 
+        element.scrollIntoViewIfNeeded();
         String text = element.innerText().substring(0,23);
 //        String text = getPage().locator(".page-header ul[class='header links']>li>span.logged-in").innerText().substring(0,23);
 
