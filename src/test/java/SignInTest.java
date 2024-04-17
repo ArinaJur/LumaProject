@@ -1,5 +1,6 @@
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.AriaRole;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -26,12 +27,14 @@ public class SignInTest extends BaseTest {
         getPage().getByLabel("Password").click();
         getPage().getByLabel("Password").fill("123456789vk_");
         getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sign In")).click();
+        getPage().locator(" span.not-logged-in")
+                .getByText("Click “Write for us” link in the footer to submit a guest post").isVisible();
 
-        Locator welcomeBanner = getPage().getByRole(AriaRole.BANNER).getByText("Welcome, tester3 tester3!");
-        // Extended timeout for CI environments
-        welcomeBanner.waitFor(new Locator.WaitForOptions().setTimeout(10000));
+        String text = getPage().locator("body>div.page-wrapper>header>div.panel.wrapper>div>ul")
+                .innerText().substring(0,25);
 
-        assert welcomeBanner.isVisible();
+        Assert.assertEquals(text, "Welcome, tester3 tester3!");
+
     }
 
     private void handleOverlays(Page page) {
