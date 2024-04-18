@@ -27,7 +27,7 @@ public class SignUpPageTest extends BaseTest {
     }
 
     @Test
-    void testSignInUser() {
+    void testSignInUser() throws InterruptedException {
 
         final String firstName = "Jack";
         final String lastName = "Sparrow";
@@ -35,6 +35,9 @@ public class SignUpPageTest extends BaseTest {
         final String email = getEmail(5);
         final String expectedText = "Thank you for registering with Main Website Store.";
         mainPage.openPage();
+
+        Thread.sleep(5000);
+        logger.error(mainPage.getDriver().getTitle());
         mainPage.clickCreateAnAccountButton()
                 .enterFirstName(firstName)
                 .enterLastName(lastName)
@@ -42,7 +45,9 @@ public class SignUpPageTest extends BaseTest {
                 .enterPassword(password)
                 .enterConfirmPassword(password)
                 .clickCreateAccountButton();
-
+        logger.error(mainPage.getDriver().getTitle());
+        Thread.sleep(5000);
+        logger.error(mainPage.getDriver().getTitle());
         try {
             String actualUser = mainPage.getContactInformation();
             Assert.assertTrue(actualUser.contains(firstName), "Text does not contain first name: " + firstName);
