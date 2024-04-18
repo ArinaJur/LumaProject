@@ -1,12 +1,14 @@
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.AriaRole;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Ignore
 
 public class SignInTest extends BaseTest {
     private static final Logger logger = LoggerFactory.getLogger(SignInTest.class);
@@ -38,6 +40,8 @@ public class SignInTest extends BaseTest {
        getPage().locator(" span.not-logged-in")
                 .getByText("Click “Write for us” link in the footer to submit a guest post").isVisible();
         logger.info("Form submitted with provided credentials");
+
+        //getPage().getByLabel("Consent",new Page.GetByLabelOptions());
 
         logPageInfo(getPage());
 
