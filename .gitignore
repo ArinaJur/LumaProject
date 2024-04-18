@@ -56,7 +56,6 @@ ehthumbs.db
 
 # Folder config file
 Desktop.ini
-
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
@@ -166,11 +165,14 @@ modules.xml
 logs/
 build/
 target/
+video/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
 pom.xml.next
 release.properties
+local.properties
+src/test/resources/local.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
@@ -185,9 +187,10 @@ buildNumber.properties
 hs_err_pid*
 /.idea/libraries/
 
-#local.properties
-#src/test/resources/local.properties
+local.properties
+src/test/resources/local.properties
 
+=======
 ### STS ###
 .apt_generated
 .factorypath

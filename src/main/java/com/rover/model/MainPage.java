@@ -3,17 +3,15 @@ package com.rover.model;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 import java.util.List;
 
-public class MainPage {
-    private static final String URL = "https://magento.softwaretestingboard.com/";
+public class MainPage extends BasePage {
 
     public MainPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        driver.get(URL);
+        super(driver);
+        this.openPage();
     }
 
     @FindBy(xpath = "//a[@class='logo']")
@@ -48,6 +46,93 @@ public class MainPage {
 
     @FindBy(css = ".action.tocart.primary")
     private WebElement addToCartButton;
+
+    @FindBy(css = "li.authorization-link a")
+    private WebElement signInBtn;
+
+    @FindBy(css = ".authorization-link + li a")
+    private WebElement createAnAccountBtn;
+
+    @FindBy(className = "logged-in")
+    private WebElement loginMessage;
+
+    @FindBy(className = "switch")
+    private WebElement accountMenuBtn;
+
+    @FindBy(xpath = "//div[@class='panel header']//ul[@class='header links']//button")
+    private WebElement shevron;
+
+    @FindBy(xpath = "//div[@class='box-content']/p")
+    private WebElement contactInformation;
+
+    @FindBy(xpath = "//li[@class='customer-welcome active']//a[contains(@href, 'customer/account/logout/')]")
+    private List<WebElement> dropdown;
+
+    @FindBy(xpath = "//div[@role='alert']/div/div")
+    private WebElement alert;
+
+    @FindBy(xpath = "//span[@class='base' and @data-ui-id='page-title-wrapper']")
+    private WebElement signOut;
+
+    @FindBy(xpath = "//li[@class='customer-welcome active']//a[contains(@href, 'customer/account/logout/')]")
+    private WebElement logoutAccount;
+
+    @FindBy(css = ".customer-menu li:nth-of-type(1)")
+    private WebElement myAccountBtn;
+
+    public MainPage clickShevron() {
+        shevron.click();
+        return this;
+    }
+
+    public String confirmMessage() {
+        return alert.getText().trim();
+    }
+
+    public boolean isLoggedIn() {
+        return !dropdown.isEmpty();
+    }
+
+    public String getContactInformation() {
+        return contactInformation.getText();
+    }
+
+    public void openPage() {
+        getDriver().get(BASE_URL);
+    }
+
+    public LoginPage clickSignIn() {
+        signInBtn.click();
+        return new LoginPage(getDriver());
+    }
+
+    public SignUpPage clickCreateAnAccountButton() {
+        createAnAccountBtn.click();
+        return new SignUpPage(getDriver());
+    }
+
+    public AccountPage clickMyAccountButton() {
+        clickAccountMenuBtn();
+        myAccountBtn.click();
+        return new AccountPage(getDriver());
+    }
+
+    public String signOutMessage() {
+        return signOut.getText();
+    }
+
+    public MainPage clickLogoutAccount() {
+        logoutAccount.click();
+        return this;
+    }
+
+    public boolean isLoggedInMessageDisplayed() {
+        return loginMessage.isDisplayed();
+    }
+
+    public void clickAccountMenuBtn() {
+        accountMenuBtn.click();
+    }
 
     public boolean isStoreLogoDisplayed() {
         return storeLogo.isDisplayed();
@@ -94,11 +179,11 @@ public class MainPage {
     }
 
     public void checkHref() {
-        Assert.assertEquals(yogaCollectionPromo.getAttribute("href"), URL + "collections/yoga-new.html");
-        Assert.assertEquals(pantsPromo.getAttribute("href"), URL + "promotions/pants-all.html");
-        Assert.assertEquals(tShirtsPromo.getAttribute("href"), URL + "promotions/tees-all.html");
-        Assert.assertEquals(erinRecommendsPromo.getAttribute("href"), URL + "collections/erin-recommends.html");
-        Assert.assertEquals(performancePromo.getAttribute("href"), URL + "collections/performance-fabrics.html");
-        Assert.assertEquals(ecoFriendlyPromo.getAttribute("href"), URL + "collections/eco-friendly.html");
+        Assert.assertEquals(yogaCollectionPromo.getAttribute("href"), BASE_URL + "collections/yoga-new.html");
+        Assert.assertEquals(pantsPromo.getAttribute("href"), BASE_URL + "promotions/pants-all.html");
+        Assert.assertEquals(tShirtsPromo.getAttribute("href"), BASE_URL + "promotions/tees-all.html");
+        Assert.assertEquals(erinRecommendsPromo.getAttribute("href"), BASE_URL + "collections/erin-recommends.html");
+        Assert.assertEquals(performancePromo.getAttribute("href"), BASE_URL + "collections/performance-fabrics.html");
+        Assert.assertEquals(ecoFriendlyPromo.getAttribute("href"), BASE_URL + "collections/eco-friendly.html");
     }
 }

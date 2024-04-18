@@ -11,6 +11,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 public final class BaseUtils {
@@ -73,8 +75,9 @@ public final class BaseUtils {
     }
 
     static WebDriver createDriver() {
-        WebDriver driver = new ChromeDriver(chromeOptions);
-
+        ChromeDriver driver = new ChromeDriver(chromeOptions);
+        driver.executeCdpCommand("Network.enable", Map.of());
+        driver.executeCdpCommand("Network.setExtraHTTPHeaders", Map.of("headers", Map.of("accept-language", "en-US,en;q=0.9")));
         return driver;
     }
 
@@ -91,6 +94,9 @@ public final class BaseUtils {
 
     static BrowserContext createContext(Browser browser) {
         return browser.newContext(new Browser.NewContextOptions()
-                .setViewportSize(SCREEN_SIZE_WIDTH, SCREEN_SIZE_HEIGHT));
+                .setViewportSize(SCREEN_SIZE_WIDTH, SCREEN_SIZE_HEIGHT)
+                .setRecordVideoSize(1280, 720)
+                .setRecordVideoDir(Paths.get("video/"))
+        );
     }
 }
