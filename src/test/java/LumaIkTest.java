@@ -52,7 +52,8 @@ public class LumaIkTest extends BaseTest {
         getPage().getByLabel("Password").fill("tester1234!");
         getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sign In")).click();
         getPage().waitForLoadState();
-        Locator element = getPage().getByRole(AriaRole.BANNER).getByText("Welcome, Tester Tester!");
+        ElementHandle element = getPage().waitForSelector("//div/header[@class='page-header']//span[@class='logged-in']", new Page.WaitForSelectorOptions().setTimeout(60000));
+
         String text = element.innerText().substring(0,23);
 //        String text = getPage().locator(".page-header ul[class='header links']>li>span.logged-in").innerText().substring(0,23);
         Assert.assertEquals(text, "Welcome, Tester Tester!");
