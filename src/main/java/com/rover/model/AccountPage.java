@@ -3,16 +3,15 @@ package com.rover.model;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-public class AccountPage {
+public class AccountPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='box-content']//p")
     private WebElement accountInfoParagraph;
 
-    public AccountPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
+    protected AccountPage(WebDriver driver) {
+        super(driver);
     }
 
     public String getAccountInfoText() {

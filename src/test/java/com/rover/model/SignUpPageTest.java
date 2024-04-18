@@ -1,6 +1,9 @@
 package com.rover.model;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -9,26 +12,48 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class SignUpPageTest extends BaseTest {
-    private static final String url = "https://magento.softwaretestingboard.com/customer/account/create/";
+
+    @BeforeMethod
+    public void beforeClass() {
+        mainPage = new MainPage(getDriver());
+    }
+
+    private MainPage mainPage;
+    private static final Logger logger = LogManager.getLogger(SignUpPageTest.class);
+
+    private void logOut() {
+        String expectedMessage = mainPage.clickLogoutAccount().signOutMessage();
+        Assert.assertEquals(expectedMessage, "You are signed out");
+    }
 
     @Test
-    void  testSignIn(){
+    void testSignInUser() {
         final String firstName = "Jack";
         final String lastName = "Sparrow";
+        final String password = "Password123!";
         final String email = getEmail(5);
-        final String expectedUrl = "https://magento.softwaretestingboard.com/customer/account/createpost/";
+        final String expectedText = "Thank you for registering with Main Website Store.";
+        mainPage.openPage();
 
-        SignUpPage signUpPage = new SignUpPage(getDriver());
-        getDriver().get(url);
+        logger.error(mainPage.getDriver().getTitle());
+        mainPage.clickCreateAnAccountButton()
+                .enterFirstName(firstName)
+                .enterLastName(lastName)
+                .enterEmail(email)
+                .enterPassword(password)
+                .enterConfirmPassword(password)
+                .clickCreateAccountButton();
+        logger.error(mainPage.getDriver().getTitle());
+        String actualUser = mainPage.getContactInformation();
+        Assert.assertTrue(actualUser.contains(firstName), "Text does not contain first name: " + firstName);
+        Assert.assertTrue(actualUser.contains(lastName), "Text does not contain last name: " + lastName);
+        Assert.assertTrue(actualUser.contains(email), "Text does not contain email: " + email);
+        String confirmation = mainPage.confirmMessage();
+        Assert.assertEquals(confirmation, expectedText, "Text does not match expected");
 
-        signUpPage.enterFirstName(firstName);
-        signUpPage.enterLastName(lastName);
-        signUpPage.enterEmail(email);
-        signUpPage.enterPassword("Password123!");
-        signUpPage.enterConfirmPassword("Password123!");
-        signUpPage.clickCreateAccountButton();
-
-        Assert.assertEquals(getDriver().getCurrentUrl(), expectedUrl);
+        if (mainPage.clickShevron().isLoggedIn()) {
+            logOut();
+        }
     }
 
     private String getEmail(int length) {
