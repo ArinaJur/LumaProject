@@ -2,11 +2,13 @@ package com.rover.model;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -28,6 +30,9 @@ public class SignUpPageTest extends BaseTest {
 
     @Test
     void testSignInUser() throws InterruptedException {
+
+        ((ChromeDriver) getDriver()).executeCdpCommand("Network.enable", Map.of());
+        ((ChromeDriver) getDriver()).executeCdpCommand("Network.setExtraHTTPHeaders", Map.of("headers", Map.of("accept-language", "en-US,en;q=0.9")));
 
         final String firstName = "Jack";
         final String lastName = "Sparrow";
