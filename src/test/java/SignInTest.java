@@ -50,6 +50,12 @@ public class SignInTest extends BaseTest {
 
     @Test
     public void testSignInSelenium() throws InterruptedException {
+        Thread.sleep(5000);
+        getDriver().get("https://magento.softwaretestingboard.com/customer/account/logout/");
+
+        Thread.sleep(1000);
+        logger.info(getDriver().getCurrentUrl());
+
         getDriver().get("https://magento.softwaretestingboard.com/");
         getDriver().findElement(By.linkText("Sign In")).click();
 
