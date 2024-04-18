@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Properties;
 
 public final class BaseUtils {
@@ -73,8 +74,9 @@ public final class BaseUtils {
     }
 
     static WebDriver createDriver() {
-        WebDriver driver = new ChromeDriver(chromeOptions);
-
+        ChromeDriver driver = new ChromeDriver(chromeOptions);
+        driver.executeCdpCommand("Network.enable", Map.of());
+        driver.executeCdpCommand("Network.setExtraHTTPHeaders", Map.of("headers", Map.of("accept-language", "en-US,en;q=0.9")));
         return driver;
     }
 

@@ -2,13 +2,11 @@ package com.rover.model;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -29,11 +27,7 @@ public class SignUpPageTest extends BaseTest {
     }
 
     @Test
-    void testSignInUser() throws InterruptedException {
-
-        ((ChromeDriver) getDriver()).executeCdpCommand("Network.enable", Map.of());
-        ((ChromeDriver) getDriver()).executeCdpCommand("Network.setExtraHTTPHeaders", Map.of("headers", Map.of("accept-language", "en-US,en;q=0.9")));
-
+    void testSignInUser() {
         final String firstName = "Jack";
         final String lastName = "Sparrow";
         final String password = "Password123!";
@@ -41,7 +35,6 @@ public class SignUpPageTest extends BaseTest {
         final String expectedText = "Thank you for registering with Main Website Store.";
         mainPage.openPage();
 
-        Thread.sleep(5000);
         logger.error(mainPage.getDriver().getTitle());
         mainPage.clickCreateAnAccountButton()
                 .enterFirstName(firstName)
@@ -51,23 +44,15 @@ public class SignUpPageTest extends BaseTest {
                 .enterConfirmPassword(password)
                 .clickCreateAccountButton();
         logger.error(mainPage.getDriver().getTitle());
-        Thread.sleep(5000);
-        logger.error(mainPage.getDriver().getTitle());
-        try {
-            String actualUser = mainPage.getContactInformation();
-            Assert.assertTrue(actualUser.contains(firstName), "Text does not contain first name: " + firstName);
-            Assert.assertTrue(actualUser.contains(lastName), "Text does not contain last name: " + lastName);
-            Assert.assertTrue(actualUser.contains(email), "Text does not contain email: " + email);
-            String confirmation = mainPage.confirmMessage();
-            Assert.assertEquals(confirmation, expectedText, "Text does not match expected");
+        String actualUser = mainPage.getContactInformation();
+        Assert.assertTrue(actualUser.contains(firstName), "Text does not contain first name: " + firstName);
+        Assert.assertTrue(actualUser.contains(lastName), "Text does not contain last name: " + lastName);
+        Assert.assertTrue(actualUser.contains(email), "Text does not contain email: " + email);
+        String confirmation = mainPage.confirmMessage();
+        Assert.assertEquals(confirmation, expectedText, "Text does not match expected");
 
-            if (mainPage.clickShevron().isLoggedIn()) {
-                logOut();
-            }
-        } catch (Exception e){
-            logger.error(mainPage.getDriver().getCurrentUrl());
-            logger.error(mainPage.getDriver().getTitle());
-            logger.error(e.getMessage());
+        if (mainPage.clickShevron().isLoggedIn()) {
+            logOut();
         }
     }
 
