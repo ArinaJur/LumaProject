@@ -56,11 +56,11 @@ public class SignInTest extends BaseTest {
         Thread.sleep(1000);
         logger.info(getDriver().getCurrentUrl());
 
-        getDriver().get("https://magento.softwaretestingboard.com/");
-        getDriver().findElement(By.linkText("Sign In")).click();
-
-        Thread.sleep(5000);
-        logger.info(getDriver().getCurrentUrl());
+//        getDriver().get("https://magento.softwaretestingboard.com/");
+//        getDriver().findElement(By.linkText("Sign In")).click();
+//
+//        Thread.sleep(5000);
+//        logger.info(getDriver().getCurrentUrl());
 
         getDriver().findElement(By.id("email")).sendKeys("test+123@test.com");
         getDriver().findElement(By.id("pass")).sendKeys("Tester123");
@@ -70,6 +70,7 @@ public class SignInTest extends BaseTest {
         logger.info(getDriver().getCurrentUrl());
 
         Assert.assertTrue(getDriver().findElement(By.xpath("//div[@class='panel header']//span[@class='logged-in']")).isDisplayed());
+        logger.info(getDriver().findElement(By.xpath("//div[@class='panel header']//span[@class='logged-in']")).getText());
     }
 
 
