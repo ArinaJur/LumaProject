@@ -51,9 +51,8 @@ public class LumaIkTest extends BaseTest {
         getPage().getByLabel("Password").click();
         getPage().getByLabel("Password").fill("tester1234!");
         getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sign In")).click();
-        ElementHandle element = getPage().waitForSelector(".page-header ul[class='header links']>li>span.logged-in", new Page.WaitForSelectorOptions().setTimeout(60000));
-
-        element.scrollIntoViewIfNeeded();
+        getPage().waitForLoadState();
+        ElementHandle element = getPage().waitForSelector(".page-header ul[class='header links']>li>span.logged-in", new Page.WaitForSelectorOptions().setTimeout(5000));
         String text = element.innerText().substring(0,23);
 //        String text = getPage().locator(".page-header ul[class='header links']>li>span.logged-in").innerText().substring(0,23);
 
