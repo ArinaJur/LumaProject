@@ -42,6 +42,8 @@ public abstract class BaseTest {
         if (!testResult.isSuccess()) {
             page.video().saveAs(Paths.get("video/" + testMethod.getName() + ".webm"));
             page.video().delete();
+        } else {
+            page.video().delete();
         }
 
         if (context != null) {

@@ -16,7 +16,7 @@ public class SignInTest extends BaseTest {
 
     @Test
     public void testSingInPW() throws InterruptedException {
-        getPage().navigate("https://magento.softwaretestingboard.com/");
+        getPage().navigate("https://magento.softwaretestingboard.com");
 
         Thread.sleep(5000);
         logger.info(getPage().url());
@@ -50,12 +50,12 @@ public class SignInTest extends BaseTest {
     @Test
     public void testSignInSelenium() throws InterruptedException {
         Thread.sleep(5000);
-        getDriver().get("https://magento.softwaretestingboard.com/customer/account/logout/");
+        getDriver().get("https://magento.softwaretestingboard.com/customer/account/logout");
 
         Thread.sleep(1000);
         logger.info(getDriver().getCurrentUrl());
 
-//        getDriver().get("https://magento.softwaretestingboard.com/");
+//        getDriver().get("https://magento.softwaretestingboard.com");
 //        getDriver().findElement(By.linkText("Sign In")).click();
 //
 //        Thread.sleep(5000);
@@ -68,7 +68,7 @@ public class SignInTest extends BaseTest {
         Thread.sleep(5000);
         logger.info(getDriver().getCurrentUrl());
 
-        getDriver().get("https://magento.softwaretestingboard.com/");
+        getDriver().get("https://magento.softwaretestingboard.com");
 
         Assert.assertTrue(getDriver().findElement(By.xpath("//div[@class='panel header']//span[@class='logged-in']")).isDisplayed());
         logger.info(getDriver().findElement(By.xpath("//div[@class='panel header']//span[@class='logged-in']")).getText());
