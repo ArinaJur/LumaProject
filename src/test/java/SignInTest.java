@@ -31,11 +31,11 @@ public class SignInTest extends BaseTest {
         }
 
         getPage().getByLabel("Email", new Page.GetByLabelOptions().setExact(true)).click();
-        getPage().getByLabel("Email", new Page.GetByLabelOptions().setExact(true)).fill("Tester3@gmail.com");
+        getPage().getByLabel("Email", new Page.GetByLabelOptions().setExact(true)).fill("tester1234@gmail.com");
         getPage().getByLabel("Password").click();
-        getPage().getByLabel("Password").fill("123456789vk_");
+        getPage().getByLabel("Password").fill("tester1234!");
         getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sign In")).click();
-        getPage().locator(" span.not-logged-in")
+       getPage().locator(" span.not-logged-in")
                 .getByText("Click “Write for us” link in the footer to submit a guest post").isVisible();
         logger.info("Form submitted with provided credentials");
 
