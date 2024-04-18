@@ -1,4 +1,4 @@
-package com.rover.model;
+package com.page;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -80,10 +80,22 @@ public class MainPage extends BasePage {
     @FindBy(css = ".customer-menu li:nth-of-type(1)")
     private WebElement myAccountBtn;
 
+    @FindBy(xpath = "//a[text() = 'Address Book']")
+    public WebElement linkAddressBook;
+
+    @FindBy(css = "body[data-container='body']")
+    public WebElement spanPageTitleWrapper;
+
     public MainPage clickShevron() {
         shevron.click();
         return this;
     }
+
+    public AddressBookPage gotoAddressBook() {
+        linkAddressBook.click();
+        return new AddressBookPage(getDriver());
+    }
+
 
     public String confirmMessage() {
         return alert.getText().trim();

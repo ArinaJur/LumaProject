@@ -1,4 +1,4 @@
-package com.rover.model;
+package com.page;
 
 import org.openqa.selenium.WebDriver;
 
