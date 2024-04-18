@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 public final class BaseUtils {
@@ -91,6 +92,9 @@ public final class BaseUtils {
 
     static BrowserContext createContext(Browser browser) {
         return browser.newContext(new Browser.NewContextOptions()
-                .setViewportSize(SCREEN_SIZE_WIDTH, SCREEN_SIZE_HEIGHT));
+                .setViewportSize(SCREEN_SIZE_WIDTH, SCREEN_SIZE_HEIGHT)
+                .setRecordVideoSize(1280, 720)
+                .setRecordVideoDir(Paths.get("video/"))
+        );
     }
 }
