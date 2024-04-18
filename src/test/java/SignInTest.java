@@ -14,7 +14,6 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 public class SignInTest extends BaseTest {
     private static final Logger logger = LoggerFactory.getLogger(SignInTest.class);
 
-    @Ignore
     @Test
     public void testSingInPW() throws InterruptedException {
         getPage().navigate("https://magento.softwaretestingboard.com/");

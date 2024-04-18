@@ -52,6 +52,8 @@ jobs:
           path: |
             screenshots
             **/surefire-reports/emailable-report.html
+            tracing/
+            video/
 
       - name: Test Reporter
         uses: dorny/test-reporter@v1.8.0

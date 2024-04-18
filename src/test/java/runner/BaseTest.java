@@ -2,7 +2,11 @@ package runner;
 
 import com.microsoft.playwright.*;
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
+
+import java.lang.reflect.Method;
+import java.nio.file.Paths;
 
 public abstract class BaseTest {
     private WebDriver driver;
@@ -26,13 +30,20 @@ public abstract class BaseTest {
     }
 
     @AfterMethod
-    protected void afterMethod() {
+    protected void afterMethod(ITestResult testResult, Method testMethod) {
         if (driver != null) {
             driver.quit();
         }
+
         if (page != null) {
             page.close();
         }
+
+        if (!testResult.isSuccess()) {
+            page.video().saveAs(Paths.get("video/" + testMethod.getName() + ".webm"));
+            page.video().delete();
+        }
+
         if (context != null) {
             context.close();
         }
