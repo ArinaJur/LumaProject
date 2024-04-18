@@ -69,6 +69,8 @@ public class SignInTest extends BaseTest {
         Thread.sleep(5000);
         logger.info(getDriver().getCurrentUrl());
 
+        getDriver().get("https://magento.softwaretestingboard.com/");
+
         Assert.assertTrue(getDriver().findElement(By.xpath("//div[@class='panel header']//span[@class='logged-in']")).isDisplayed());
         logger.info(getDriver().findElement(By.xpath("//div[@class='panel header']//span[@class='logged-in']")).getText());
     }
