@@ -166,6 +166,7 @@ modules.xml
 logs/
 build/
 target/
+video/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -185,8 +186,8 @@ buildNumber.properties
 hs_err_pid*
 /.idea/libraries/
 
-#local.properties
-#src/test/resources/local.properties
+local.properties
+src/test/resources/local.properties
 
 ### STS ###
 .apt_generated
@@ -225,3 +226,4 @@ hs_err_pid*
 .env.test.local
 .env.production.local
 token.txt
+
