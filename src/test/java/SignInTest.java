@@ -2,20 +2,17 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class SignInTest extends BaseTest {
     private static final Logger logger = LoggerFactory.getLogger(SignInTest.class);
 
-    @Ignore
     @Test
-    public void testSingInPW() {
+    public void testSingInPW() throws InterruptedException {
         logger.info("Navigating to the website");
         getPage().navigate("https://magento.softwaretestingboard.com/");
 
@@ -38,6 +35,7 @@ public class SignInTest extends BaseTest {
         getPage().getByLabel("Password").click();
         getPage().getByLabel("Password").fill("tester1234!");
         getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sign In")).click();
+        Thread.sleep(3000);
         getPage().locator(" span.not-logged-in")
                 .getByText("Click “Write for us” link in the footer to submit a guest post").isVisible();
         logger.info("Form submitted with provided credentials");
@@ -46,7 +44,7 @@ public class SignInTest extends BaseTest {
 
         logPageInfo(getPage());
 
-/*        Thread.sleep(3000);
+/*
         Locator welcomeElement = getPage().locator("//div[@class='panel header']//ul[@class='header links']//li[@class='greet welcome']//span[@class='logged-in']");
         System.out.println(welcomeElement);
         String actual = welcomeElement.innerText();
