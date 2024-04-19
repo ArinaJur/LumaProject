@@ -83,9 +83,6 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//a[text() = 'Address Book']")
     public WebElement linkAddressBook;
 
-    @FindBy(css = "body[data-container='body']")
-    public WebElement spanPageTitleWrapper;
-
     public MainPage clickShevron() {
         shevron.click();
         return this;
@@ -95,7 +92,6 @@ public class MainPage extends BasePage {
         linkAddressBook.click();
         return new AddressBookPage(getDriver());
     }
-
 
     public String confirmMessage() {
         return alert.getText().trim();
@@ -124,12 +120,16 @@ public class MainPage extends BasePage {
     }
 
     public AccountPage clickMyAccountButton() {
-        clickAccountMenuBtn();
+        accountMenuBtn.click();
         myAccountBtn.click();
         return new AccountPage(getDriver());
     }
 
-    public String signOutMessage() {
+    public void verifyLogOut() {
+        Assert.assertEquals(getSignOutText(), "You are signed out");
+    }
+
+    public String getSignOutText() {
         return signOut.getText();
     }
 
@@ -140,10 +140,6 @@ public class MainPage extends BasePage {
 
     public boolean isLoggedInMessageDisplayed() {
         return loginMessage.isDisplayed();
-    }
-
-    public void clickAccountMenuBtn() {
-        accountMenuBtn.click();
     }
 
     public boolean isStoreLogoDisplayed() {

@@ -4,7 +4,6 @@ import com.microsoft.playwright.options.AriaRole;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -12,7 +11,7 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 
 public class SignInExampleTest extends BaseTest {
 
-    @Ignore //Ignored for CI
+
     @Test
     public void testSingInPW() {
         getPage().navigate("https://magento.softwaretestingboard.com");
@@ -36,15 +35,16 @@ public class SignInExampleTest extends BaseTest {
         Assert.assertTrue(welcomeElement.isVisible());
     }
 
-    @Ignore //Ignored for CI
+
     @Test
-    public void testSignInSelenium() {
+    public void testSignInSelenium() throws InterruptedException {
         getDriver().get("https://magento.softwaretestingboard.com");
         getDriver().findElement(By.linkText("Sign In")).click();
 
         getDriver().findElement(By.id("email")).sendKeys("test+123@test.com");
         getDriver().findElement(By.id("pass")).sendKeys("Tester123");
         getDriver().findElement(By.id("send2")).click();
+        Thread.sleep(1000);
 
         WebElement element = getDriver().findElement(By.xpath("//div[@class='panel header']//span[@class='logged-in']"));
 

@@ -1,20 +1,19 @@
-import com.microsoft.playwright.*;
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Ignore
 
 public class SignInTest extends BaseTest {
     private static final Logger logger = LoggerFactory.getLogger(SignInTest.class);
 
     @Test
-    public void testSingInPW() throws InterruptedException {
+    public void testSingInPW() {
         logger.info("Navigating to the website");
         getPage().navigate("https://magento.softwaretestingboard.com/");
 

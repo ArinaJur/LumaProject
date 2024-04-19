@@ -19,11 +19,6 @@ public class SignUpPageTest extends BaseTest {
 
     private MainPage mainPage;
 
-    private void logOut() {
-        String expectedMessage = mainPage.clickLogoutAccount().signOutMessage();
-        Assert.assertEquals(expectedMessage, "You are signed out");
-    }
-
     @Test
     void testSignInUser() {
         final String expectedText = "Thank you for registering with Main Website Store.";
@@ -47,7 +42,8 @@ public class SignUpPageTest extends BaseTest {
         Assert.assertEquals(confirmation, expectedText, "Text does not match expected");
 
         if (mainPage.clickShevron().isLoggedIn()) {
-            logOut();
+            mainPage.clickLogoutAccount().verifyLogOut();
+            logger.error(mainPage.getSignOutText());
         }
     }
 }

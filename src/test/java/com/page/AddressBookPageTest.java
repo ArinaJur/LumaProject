@@ -46,5 +46,10 @@ public class AddressBookPageTest extends BaseTest {
                 .selectRegionByValue("569")
                 .saveAddress();
         bookPage.isVisibleMessage();
+
+        if (mainPage.clickShevron().isLoggedIn()) {
+            mainPage.clickLogoutAccount().verifyLogOut();
+            logger.error(mainPage.getSignOutText());
+        }
     }
 }
