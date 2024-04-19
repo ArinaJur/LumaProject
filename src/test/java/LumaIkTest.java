@@ -1,4 +1,5 @@
 import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -29,6 +30,7 @@ public class LumaIkTest extends BaseTest {
     public void testNavigationBarPW(){
         String [] expectedListOfNavBar = {"What's New", "Women", "Men", "Gear", "Training", " Sale"} ;
 
+        getPage().getByLabel("Consent",new Page.GetByLabelOptions());
         getPage().navigate("https://magento.softwaretestingboard.com/");
         Locator navBar = getPage().locator(".nav-sections .navigation >ul>li>a");
 
