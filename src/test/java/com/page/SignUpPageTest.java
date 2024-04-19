@@ -14,6 +14,7 @@ public class SignUpPageTest extends BaseTest {
 
     @BeforeMethod
     public void beforeClass() {
+        getPage().close();
         mainPage = new MainPage(getDriver());
     }
 
@@ -43,7 +44,7 @@ public class SignUpPageTest extends BaseTest {
 
         if (mainPage.clickShevron().isLoggedIn()) {
             mainPage.clickLogoutAccount().verifyLogOut();
-            logger.error(mainPage.getSignOutText());
+            logger.info(mainPage.getSignOutText());
         }
     }
 }
