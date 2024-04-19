@@ -1,4 +1,4 @@
-package com.rover.model;
+package com.page;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -80,9 +80,17 @@ public class MainPage extends BasePage {
     @FindBy(css = ".customer-menu li:nth-of-type(1)")
     private WebElement myAccountBtn;
 
+    @FindBy(xpath = "//a[text() = 'Address Book']")
+    public WebElement linkAddressBook;
+
     public MainPage clickShevron() {
         shevron.click();
         return this;
+    }
+
+    public AddressBookPage gotoAddressBook() {
+        linkAddressBook.click();
+        return new AddressBookPage(getDriver());
     }
 
     public String confirmMessage() {
@@ -112,12 +120,16 @@ public class MainPage extends BasePage {
     }
 
     public AccountPage clickMyAccountButton() {
-        clickAccountMenuBtn();
+        accountMenuBtn.click();
         myAccountBtn.click();
         return new AccountPage(getDriver());
     }
 
-    public String signOutMessage() {
+    public void verifyLogOut() {
+        Assert.assertEquals(getSignOutText(), "You are signed out");
+    }
+
+    public String getSignOutText() {
         return signOut.getText();
     }
 
@@ -128,10 +140,6 @@ public class MainPage extends BasePage {
 
     public boolean isLoggedInMessageDisplayed() {
         return loginMessage.isDisplayed();
-    }
-
-    public void clickAccountMenuBtn() {
-        accountMenuBtn.click();
     }
 
     public boolean isStoreLogoDisplayed() {

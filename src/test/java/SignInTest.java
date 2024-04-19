@@ -1,4 +1,5 @@
-import com.microsoft.playwright.*;
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
@@ -8,13 +9,13 @@ import runner.BaseTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Ignore
 
 public class SignInTest extends BaseTest {
     private static final Logger logger = LoggerFactory.getLogger(SignInTest.class);
 
+    @Ignore
     @Test
-    public void testSingInPW() throws InterruptedException {
+    public void testSingInPW() {
         logger.info("Navigating to the website");
         getPage().navigate("https://magento.softwaretestingboard.com/");
 
@@ -37,7 +38,7 @@ public class SignInTest extends BaseTest {
         getPage().getByLabel("Password").click();
         getPage().getByLabel("Password").fill("tester1234!");
         getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sign In")).click();
-       getPage().locator(" span.not-logged-in")
+        getPage().locator(" span.not-logged-in")
                 .getByText("Click “Write for us” link in the footer to submit a guest post").isVisible();
         logger.info("Form submitted with provided credentials");
 

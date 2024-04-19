@@ -87,9 +87,13 @@ public final class BaseUtils {
     private static final int SCREEN_SIZE_HEIGHT = Integer.parseInt(properties.getProperty("screenHeight").trim());
 
     static Browser createPWBrowser(Playwright playwright) {
-        return playwright.chromium()
+        Browser browser = playwright.chromium()
                 .launch(new BrowserType.LaunchOptions()
                         .setHeadless(IS_HEADLESS).setSlowMo(SLOWMO));
+        Browser.NewContextOptions options = new Browser.NewContextOptions()
+                .setExtraHTTPHeaders(Map.of("Accept-Language", "en-US,en;q=0.9"));
+        browser.newContext(options);
+        return browser;
     }
 
     static BrowserContext createContext(Browser browser) {

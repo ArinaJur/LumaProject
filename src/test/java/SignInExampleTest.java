@@ -12,7 +12,7 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 
 public class SignInExampleTest extends BaseTest {
 
-    @Ignore //Ignored for CI
+    @Ignore
     @Test
     public void testSingInPW() {
         getPage().navigate("https://magento.softwaretestingboard.com");
@@ -28,7 +28,6 @@ public class SignInExampleTest extends BaseTest {
         assertThat(getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sign In"))).isEnabled();
 
         getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sign In")).click();
-
         Locator welcomeElement = getPage().locator(".panel.header .logged-in");
         String actualText = welcomeElement.innerText();
 
@@ -36,15 +35,16 @@ public class SignInExampleTest extends BaseTest {
         Assert.assertTrue(welcomeElement.isVisible());
     }
 
-    @Ignore //Ignored for CI
+
     @Test
-    public void testSignInSelenium() {
+    public void testSignInSelenium() throws InterruptedException {
         getDriver().get("https://magento.softwaretestingboard.com");
         getDriver().findElement(By.linkText("Sign In")).click();
 
         getDriver().findElement(By.id("email")).sendKeys("test+123@test.com");
         getDriver().findElement(By.id("pass")).sendKeys("Tester123");
         getDriver().findElement(By.id("send2")).click();
+        Thread.sleep(1000);
 
         WebElement element = getDriver().findElement(By.xpath("//div[@class='panel header']//span[@class='logged-in']"));
 
