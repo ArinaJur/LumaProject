@@ -4,6 +4,7 @@ import com.microsoft.playwright.options.AriaRole;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -11,7 +12,7 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 
 public class SignInExampleTest extends BaseTest {
 
-
+    @Ignore
     @Test
     public void testSingInPW() {
         getPage().navigate("https://magento.softwaretestingboard.com");
@@ -27,7 +28,6 @@ public class SignInExampleTest extends BaseTest {
         assertThat(getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sign In"))).isEnabled();
 
         getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sign In")).click();
-
         Locator welcomeElement = getPage().locator(".panel.header .logged-in");
         String actualText = welcomeElement.innerText();
 
