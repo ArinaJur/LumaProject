@@ -40,8 +40,22 @@ jobs:
       - name: Maven test
         run: mvn -e test
         env:
-          BROWSER_OPTIONS: browserType=chromium;screenWidth=1366;screenHeight=768;isHeadless=true;slowMo=0;tracing=true;video=true
-          CHROME_OPTIONS: --disable-gpu;--no-sandbox;--disable-dev-shm-usage;--headless;--window-size=1920,1080;--disable-web-security;--allow-running-insecure-content;--ignore-certificate-errors
+          BROWSER_OPTIONS: | 
+            browserType=chromium;
+            screenWidth=1366;
+            screenHeight=768;
+            isHeadless=true;
+            slowMo=0;
+            tracing=true;
+            video=true
+          CHROME_OPTIONS: |
+            --disable-gpu;--no-sandbox;
+            --disable-dev-shm-usage;
+            --headless=new;
+            --window-size=1920,1080;
+            --disable-web-security;
+            --allow-running-insecure-content;
+            --ignore-certificate-errors
           CI_RUN: true
 
       - name: Attach screenshots and reports

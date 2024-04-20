@@ -1,6 +1,6 @@
 package com.playwright;
 
-import models.User;
+import com.unknown.models.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

@@ -1,6 +1,8 @@
+package selpw;
+
 import api.MagentoApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import models.User;
+import com.unknown.models.User;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import runner.BaseTest;

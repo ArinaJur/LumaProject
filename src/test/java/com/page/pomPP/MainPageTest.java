@@ -1,8 +1,9 @@
-package com.page;
+package com.page.pomPP;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import com.selenium.pp.pages.MainPage;
 
 public class MainPageTest extends BaseTest {
 

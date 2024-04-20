@@ -1,12 +1,13 @@
-package com.page;
+package com.page.pomPP;
 
-import models.User;
+import com.unknown.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import com.selenium.pp.pages.MainPage;
 
 public class SignUpPageTest extends BaseTest {
 
