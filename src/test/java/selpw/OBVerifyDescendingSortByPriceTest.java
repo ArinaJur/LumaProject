@@ -109,6 +109,7 @@ public class OBVerifyDescendingSortByPriceTest extends BaseTest {
         openMenTopsPagePW();
         getPage().getByLabel("Sort By").selectOption("price");
         link("Set Descending Direction").click();
+        getPage().waitForSelector(".sort-desc");
 
         List<Locator> pricesElements = xpath("//li[@class='item product product-item']//span[@class='price']").all();
 
