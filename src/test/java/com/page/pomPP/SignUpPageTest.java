@@ -24,7 +24,7 @@ public class SignUpPageTest extends BaseTest {
     @Test
     void testSignInUser() {
         final String expectedText = "Thank you for registering with Main Website Store.";
-        logger.info(mainPage.getDriver().getTitle());
+//        logger.info(mainPage.getDriver().getTitle());
 
         User user = new User();
         mainPage.openPage();
@@ -35,7 +35,7 @@ public class SignUpPageTest extends BaseTest {
                 .enterPassword(user.getPassword())
                 .enterConfirmPassword(user.getPassword())
                 .clickCreateAccountButton();
-        logger.info(mainPage.getDriver().getTitle());
+//        logger.info(mainPage.getDriver().getTitle());
         String actualUser = mainPage.getContactInformation();
         Assert.assertTrue(actualUser.contains(user.getFirstname()), "Text does not contain first name: " + user.getFirstname());
         Assert.assertTrue(actualUser.contains(user.getLastname()), "Text does not contain last name: " + user.getLastname());
@@ -45,7 +45,7 @@ public class SignUpPageTest extends BaseTest {
 
         if (mainPage.clickShevron().isLoggedIn()) {
             mainPage.clickLogoutAccount().verifyLogOut();
-            logger.info(mainPage.getSignOutText());
+//            logger.info(mainPage.getSignOutText());
         }
     }
 }
