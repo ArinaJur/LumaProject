@@ -2,7 +2,10 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import java.util.ArrayList;
@@ -11,7 +14,11 @@ import java.util.List;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class LumaIkTest extends BaseTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(LumaIkTest.class);
+    private final String Base_URL = "https://magento.softwaretestingboard.com/";
+    private final List<String> ExpectedNamesWomenSection = List.of("Tops", "Bottoms");
+    private final List<String> ExpectedNamesTopsSection = List.of("Jackets", "Hoodies & Sweatshirts", "Tees", "Bras & Tanks");
+    private final List<String> ExpectedNamesBottomsSection = List.of("Pants", "Shorts");
     @Test
     public void testNavigationBar(){
         List<String> expectedListOfNavBar = List.of("What's New", "Women", "Men", "Gear", "Training","Sale");
@@ -36,6 +43,55 @@ public class LumaIkTest extends BaseTest {
 
         assertThat(navBar).hasCount(6);
         assertThat(navBar).containsText(expectedListOfNavBar);
+    }
+
+    @Test
+    public void testNamesWomenSectionPW() throws InterruptedException {
+        getPage().navigate(Base_URL);
+        getPage().getByText("Women").hover();
+        Locator listWomenSection = getPage().locator("li.nav-2>ul>li>a.ui-corner-all");
+        List<String> namesWomensSection = listWomenSection.allInnerTexts();
+        Locator listTopSection = getPage().locator(".nav-2-1>ul>li>a>span");
+        List<String>namesTopSection = listTopSection.allInnerTexts();
+        Locator listBottomosSection = getPage().locator(".nav-2-2>ul>li");
+        List<String> namesBottomsSection = listBottomosSection.allInnerTexts();
+
+        assertThat(listWomenSection).hasCount(2);
+        assertThat(listTopSection).hasCount(4);
+        assertThat(listBottomosSection).hasCount(2);
+        Assert.assertEquals(namesWomensSection, ExpectedNamesWomenSection);
+        Assert.assertEquals(namesBottomsSection, ExpectedNamesBottomsSection);
+        Assert.assertEquals(namesTopSection, ExpectedNamesTopsSection);
+    }
+
+    @Ignore
+    @Test
+    public void testWomenSectionButtonsClickablePW1() throws InterruptedException {
+        getPage().navigate(Base_URL);
+        Locator listWomenSection = getPage().locator(".navigation li.nav-2>ul>li>a");
+        Locator headerWomensSectons = getPage().locator(".page-title");
+
+        for (int i = 0; i < listWomenSection.count(); i++) {
+            getPage().getByText("Women").hover();
+            listWomenSection.nth(i).click();
+            String text = headerWomensSectons.innerText();
+            Assert.assertEquals(text, ExpectedNamesWomenSection.get(i));
+            getPage().locator(".logo").click();
+            assertThat(getPage()).hasURL(Base_URL);
+        }
+
+        Locator listTopSection = getPage().locator("li.nav-2-1>ul>li>a");
+
+        for ( int i = 0; i < listTopSection.count(); i++ ) {
+            getPage().getByText("Women").hover();
+            getPage().locator("#ui-id-9>.ui-icon-carat-1-e").hover();
+            Thread.sleep(1000);
+            listTopSection.nth(i).click();
+            String text = headerWomensSectons.innerText();
+            Assert.assertEquals(text, ExpectedNamesTopsSection.get(i));
+            getPage().locator(".logo").click();
+            assertThat(getPage()).hasURL(Base_URL);
+        }
     }
 
 }
