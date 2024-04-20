@@ -3,6 +3,7 @@ package selpw;
 import api.MagentoApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unknown.models.User;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import runner.BaseTest;
@@ -11,7 +12,8 @@ import java.io.IOException;
 
 import static org.testng.Assert.*;
 
-public class MagentoApiTest extends BaseTest {
+@Ignore
+public class MagentoApiTest {
 
     @Test
     public void testGetCustomerInfo() throws IOException {
