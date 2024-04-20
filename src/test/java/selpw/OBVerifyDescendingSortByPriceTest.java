@@ -104,12 +104,12 @@ public class OBVerifyDescendingSortByPriceTest extends BaseTest {
     }
 
     @Test
-    public void testVerifyDescendingSortByPriceOBPW() {
+    public void testVerifyDescendingSortByPriceOBPW() throws InterruptedException {
 
         openMenTopsPagePW();
         getPage().getByLabel("Sort By").selectOption("price");
         link("Set Descending Direction").click();
-        getPage().waitForSelector(".sort-desc");
+        Thread.sleep(2000);
 
         List<Locator> pricesElements = xpath("//li[@class='item product product-item']//span[@class='price']").all();
 
