@@ -41,7 +41,7 @@ public final class BaseUtils {
                     InputStream inputStream = BaseUtils.class.getClassLoader().getResourceAsStream("local.properties");
                     if (inputStream == null) {
                         LoggerUtils.logError("ERROR: The \u001B[31mlocal.properties\u001B[0m file not found in src/test/resources/ directory.");
-                        LoggerUtils.logError("You need to create it from local.properties.TEMPLATE file.");
+                        LoggerUtils.logInfo("You need to create it from local.properties.TEMPLATE file.");
                         System.exit(1);
                     }
                     properties.load(inputStream);
