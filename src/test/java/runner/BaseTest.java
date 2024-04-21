@@ -63,11 +63,11 @@ public abstract class BaseTest {
         }
     }
 
-    protected WebDriver getDriver() {
+    public WebDriver getDriver() {
         return driver;
     }
 
-    protected Page getPage() {
+    public Page getPage() {
         return page;
     }
 

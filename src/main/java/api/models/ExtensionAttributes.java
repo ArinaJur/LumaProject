@@ -1,4 +1,4 @@
-package models;
+package api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
