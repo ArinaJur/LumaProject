@@ -30,7 +30,7 @@ public final class BaseUtils {
             if (isServerRun()) {
                 properties.setProperty(PROP_CHROME_OPTIONS, System.getenv(ENV_CHROME_OPTIONS));
                 if (System.getenv(ENV_BROWSER_OPTIONS) != null) {
-                    for (String option : System.getenv(ENV_BROWSER_OPTIONS).split(";")) {
+                    for (String option : System.getenv(ENV_BROWSER_OPTIONS).split(";\n")) {
                         String[] browserOptionArr = option.split("=");
                         properties.setProperty(browserOptionArr[0], browserOptionArr[1]);
                     }

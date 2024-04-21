@@ -1,12 +1,15 @@
 package runner;
 
 import com.microsoft.playwright.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 import java.nio.file.Paths;
+import java.util.List;
 
 public abstract class BaseTest {
     private WebDriver driver;
@@ -60,11 +63,26 @@ public abstract class BaseTest {
         }
     }
 
-    protected WebDriver getDriver() {
+    public WebDriver getDriver() {
         return driver;
     }
 
-    protected Page getPage() {
+    public Page getPage() {
         return page;
+    }
+
+    public void openBaseUrlSelenium() {
+        getDriver().get("https://magento.softwaretestingboard.com");
+        List<WebElement> consentElements = getDriver().findElements(By.xpath("//p[text()='Consent']"));
+        if(!consentElements.isEmpty()) {
+            getDriver().findElement(By.xpath("//p[text()='Consent']")).click();
+        }
+    }
+
+    public void openBaseUrlPW(){
+        getPage().navigate("https://magento.softwaretestingboard.com");
+        if(getPage().locator("//p[text()='Consent']").count() != 0) {
+            getPage().locator("//p[text()='Consent']").click();
+        }
     }
 }
