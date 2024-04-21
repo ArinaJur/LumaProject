@@ -9,6 +9,7 @@ import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 import java.nio.file.Paths;
+
 import java.util.List;
 
 public abstract class BaseTest {
@@ -37,6 +38,7 @@ public abstract class BaseTest {
         if (driver != null) {
             driver.quit();
         }
+
         if (page != null) {
             page.close();
         }
@@ -72,7 +74,7 @@ public abstract class BaseTest {
     }
 
     public void openBaseUrlSelenium() {
-        getDriver().get("https://magento.softwaretestingboard.com");
+        getDriver().get(TestData.BASE_URL);
         List<WebElement> consentElements = getDriver().findElements(By.xpath("//p[text()='Consent']"));
         if(!consentElements.isEmpty()) {
             getDriver().findElement(By.xpath("//p[text()='Consent']")).click();
@@ -80,7 +82,7 @@ public abstract class BaseTest {
     }
 
     public void openBaseUrlPW(){
-        getPage().navigate("https://magento.softwaretestingboard.com");
+        getPage().navigate(TestData.BASE_URL);
         if(getPage().locator("//p[text()='Consent']").count() != 0) {
             getPage().locator("//p[text()='Consent']").click();
         }
