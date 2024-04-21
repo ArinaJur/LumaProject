@@ -1,4 +1,4 @@
-package com.playwright;
+package playwright.pp;
 
 import com.microsoft.playwright.Page;
 

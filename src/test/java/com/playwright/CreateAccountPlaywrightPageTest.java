@@ -1,9 +1,10 @@
 package com.playwright;
 
-import models.User;
+import api.models.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import playwright.pp.CreateAccountPlaywrightPage;
 import runner.BaseTest;
 
 public class CreateAccountPlaywrightPageTest extends BaseTest {
