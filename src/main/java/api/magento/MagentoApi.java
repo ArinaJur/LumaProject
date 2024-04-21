@@ -1,13 +1,12 @@
-package api;
+package api.magento;
 
 import okhttp3.*;
-import runner.BaseTest;
 
 import java.io.*;
 import java.util.Properties;
 import java.util.Scanner;
 
-public class MagentoApi extends BaseTest {
+public class MagentoApi {
 
     private static final String BASE_URL = "https://magento.softwaretestingboard.com/rest/default/V1/";
     private static final String TOKEN_ENDPOINT = "integration/customer/token/";

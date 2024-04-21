@@ -2,6 +2,7 @@ package com.page;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import selenium.pp.page.MainPage;
 import runner.BaseTest;
 
 public class MainPageTest extends BaseTest {
