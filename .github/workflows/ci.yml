@@ -38,7 +38,7 @@ jobs:
         run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
 
       - name: Maven test
-        run: mvn clean test -q
+        run: mvn clean -e test -q
         env:
           BROWSER_OPTIONS: |
             browserType=chromium;
