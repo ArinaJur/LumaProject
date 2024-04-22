@@ -9,7 +9,7 @@ import runner.BaseTest;
 import java.util.ArrayList;
 import java.util.List;
 
-
+//Just to commit changes
 public class DSVerifyDescendingSortByPriceTest extends BaseTest {
     public static final String BASE_URL = "https://magento.softwaretestingboard.com";
 
