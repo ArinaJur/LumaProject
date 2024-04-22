@@ -1,10 +1,12 @@
 package com.page;
 
-import models.Address;
-import models.User;
+import api.models.Address;
+import api.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
+import selenium.pp.page.AddressBookPage;
+import selenium.pp.page.MainPage;
 import runner.BaseTest;
 
 public class AddressBookPageTest extends BaseTest {

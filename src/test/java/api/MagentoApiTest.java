@@ -1,15 +1,16 @@
-import api.MagentoApi;
+package api;
+
+import api.magento.MagentoApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import models.User;
+import api.models.User;
 import org.testng.annotations.Test;
 import org.testng.Assert;
-import runner.BaseTest;
 
 import java.io.IOException;
 
 import static org.testng.Assert.*;
 
-public class MagentoApiTest extends BaseTest {
+public class MagentoApiTest {
 
     @Test
     public void testGetCustomerInfo() throws IOException {
