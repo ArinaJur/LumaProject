@@ -12,13 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import static runner.TestData.BASE_URL;
 
 public class AJVerifyDescendingSortByPriceTest extends PWLocator {
 
     private void openMenTopsPageSelenium() {
-        getDriver().get(TestData.BASE_URL);
-        getDriver().findElement(By.linkText("Men")).click();
-        getDriver().findElement(By.linkText("Tops")).click();
+        getDriver(BASE_URL).get(BASE_URL);
+        getDriver(BASE_URL).findElement(By.linkText("Men")).click();
+        getDriver(BASE_URL).findElement(By.linkText("Tops")).click();
     }
 
     //Wrappers для локкаторов перенесены в класс PWLocator
@@ -51,7 +52,7 @@ public class AJVerifyDescendingSortByPriceTest extends PWLocator {
 //    }
 
     private void openMenTopsPagePW() {
-        navigate(TestData.BASE_URL);
+        navigate(BASE_URL);
         textExact("Men").click();
         link("Tops").click();
     }
@@ -84,12 +85,12 @@ public class AJVerifyDescendingSortByPriceTest extends PWLocator {
     public void testDescendingSortByPriceAJSelenium() {
         openMenTopsPageSelenium();
 
-        getDriver().findElement(By.id("sorter")).click();
-        getDriver().findElement(By.xpath("//option[@value='price']")).click();
-        getDriver().findElement(By.linkText("Set Descending Direction")).click();
+        getDriver(BASE_URL).findElement(By.id("sorter")).click();
+        getDriver(BASE_URL).findElement(By.xpath("//option[@value='price']")).click();
+        getDriver(BASE_URL).findElement(By.linkText("Set Descending Direction")).click();
 
-        List<WebElement> productsElements = getDriver().findElements(By.xpath("//li[@class='item product product-item']"));
-        List<WebElement> pricesElements = getDriver().findElements(
+        List<WebElement> productsElements = getDriver(BASE_URL).findElements(By.xpath("//li[@class='item product product-item']"));
+        List<WebElement> pricesElements = getDriver(BASE_URL).findElements(
                 By.xpath("//li[@class='item product product-item']//span[@class='price']")
         );
         List<Double> prices = new ArrayList<>();

@@ -5,15 +5,16 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import static runner.TestData.BASE_URL;
 
 public class FirstTest extends BaseTest {
 
     @Test
     public void testSelenium() {
-        getDriver().get("https://magento.softwaretestingboard.com");
+        getDriver(BASE_URL).get("https://magento.softwaretestingboard.com");
 
-        Assert.assertEquals(getDriver().getCurrentUrl(), "https://magento.softwaretestingboard.com/");
-        Assert.assertEquals(getDriver().getTitle(), "Home Page");
+        Assert.assertEquals(getDriver(BASE_URL).getCurrentUrl(), "https://magento.softwaretestingboard.com/");
+        Assert.assertEquals(getDriver(BASE_URL).getTitle(), "Home Page");
     }
 
     @Test

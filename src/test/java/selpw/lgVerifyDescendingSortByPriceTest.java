@@ -9,16 +9,16 @@ public class lgVerifyDescendingSortByPriceTest extends BaseTest {
 
     private void openMenTopsPageSelenium() {
         openBaseUrlSelenium();
-        getDriver().findElement(By.linkText("Men")).click();
-        getDriver().findElement(By.linkText("Tops")).click();
+        getDriver(BASE_URL).findElement(By.linkText("Men")).click();
+        getDriver(BASE_URL).findElement(By.linkText("Tops")).click();
     }
 
     @Test
 
     public void testVerifyDescendingSortByPriceOBSelenium() {
         openMenTopsPageSelenium();
-        getDriver().findElement(By.xpath("//option[@value='price']")).click();
-        getDriver().findElement(By.linkText("Set Descending Direction")).click();
+        getDriver(BASE_URL).findElement(By.xpath("//option[@value='price']")).click();
+        getDriver(BASE_URL).findElement(By.linkText("Set Descending Direction")).click();
 
     }
 

@@ -5,11 +5,13 @@ import org.testng.annotations.Test;
 import selenium.pp.page.MainPage;
 import runner.BaseTest;
 
+import static runner.TestData.BASE_URL;
+
 public class MainPageTest extends BaseTest {
 
     @Test
     public void testMainPageElements() {
-        MainPage mainPage = new MainPage(getDriver());
+        MainPage mainPage = new MainPage(getDriver(BASE_URL));
         mainPage.checkHref();
 
         Assert.assertTrue(mainPage.isStoreLogoDisplayed(), "Logo is not displayed");

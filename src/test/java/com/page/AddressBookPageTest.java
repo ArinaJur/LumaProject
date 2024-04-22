@@ -9,6 +9,8 @@ import selenium.pp.page.AddressBookPage;
 import selenium.pp.page.MainPage;
 import runner.BaseTest;
 
+import static runner.TestData.BASE_URL;
+
 public class AddressBookPageTest extends BaseTest {
 
     private static final Logger logger = LogManager.getLogger(AddressBookPageTest.class);
@@ -17,7 +19,7 @@ public class AddressBookPageTest extends BaseTest {
     public void testAddressBookPage() {
         User user = new User();
         Address address = new Address();
-        MainPage mainPage = new MainPage(getDriver());
+        MainPage mainPage = new MainPage(getDriver(BASE_URL));
 
         mainPage.openPage();
         mainPage.clickCreateAnAccountButton()
@@ -28,7 +30,7 @@ public class AddressBookPageTest extends BaseTest {
                 .enterConfirmPassword(user.getPassword())
                 .clickCreateAccountButton();
 
-        logger.error(getDriver().getTitle());
+        logger.error(getDriver(BASE_URL).getTitle());
         AddressBookPage bookPage = mainPage.gotoAddressBook();
         bookPage.isVisibleHeader();
         bookPage.isVisibleContactInformation();

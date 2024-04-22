@@ -28,9 +28,9 @@ public class LumaIkTest extends PWLocator {
 
         List<String> expectedListOfNavBar = List.of("What's New", "Women", "Men", "Gear", "Training","Sale");
 
-        getDriver().get("https://magento.softwaretestingboard.com/");
+        getDriver(BASE_URL).get("https://magento.softwaretestingboard.com/");
 
-        List<WebElement> listOfNavBar = getDriver().findElements(By.cssSelector(".nav-sections .navigation >ul>li>a"));
+        List<WebElement> listOfNavBar = getDriver(BASE_URL).findElements(By.cssSelector(".nav-sections .navigation >ul>li>a"));
         List<String> namesOfNavbar = new ArrayList<>();
         for(WebElement text : listOfNavBar) {
             namesOfNavbar.add(text.getText());

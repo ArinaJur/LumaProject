@@ -7,10 +7,12 @@ import org.testng.annotations.Test;
 import playwright.pp.CreateAccountPlaywrightPage;
 import runner.BaseTest;
 
+import static runner.TestData.BASE_URL;
+
 public class CreateAccountPlaywrightPageTest extends BaseTest {
     @BeforeMethod
     public void before() {
-        getDriver().quit();
+        getDriver(BASE_URL).quit();
     }
 
     @Test

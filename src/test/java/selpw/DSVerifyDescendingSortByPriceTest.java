@@ -14,8 +14,8 @@ public class DSVerifyDescendingSortByPriceTest extends BaseTest {
     public static final String BASE_URL = "https://magento.softwaretestingboard.com";
 
     private void openMenTopsPage() {
-        getDriver().findElement(By.linkText("Men")).click();
-        getDriver().findElement(By.linkText("Tops")).click();
+        getDriver(BASE_URL).findElement(By.linkText("Men")).click();
+        getDriver(BASE_URL).findElement(By.linkText("Tops")).click();
     }
 
     private Double getMax(List<Double> list) {
@@ -41,17 +41,17 @@ public class DSVerifyDescendingSortByPriceTest extends BaseTest {
     @Test
     public void testDescendingSortByPriceDSSelenium() {
 
-    getDriver().get(BASE_URL);
+    getDriver(BASE_URL).get(BASE_URL);
     //getDriver().findElement(By.xpath("//a[@href='https://magento.softwaretestingboard.com/men.html']")).click();
 
         openMenTopsPage();
 
-        getDriver().findElement(By.id("sorter")).click();
-        getDriver().findElement(By.xpath("//option[@value='price']")).click();
-        getDriver().findElement(By.linkText("Set Descending Direction")).click();
+        getDriver(BASE_URL).findElement(By.id("sorter")).click();
+        getDriver(BASE_URL).findElement(By.xpath("//option[@value='price']")).click();
+        getDriver(BASE_URL).findElement(By.linkText("Set Descending Direction")).click();
 
-        List<WebElement> productsElement = getDriver().findElements(By.xpath("//li[@class='item product product-item']"));
-        List<WebElement> pricesElements = getDriver().findElements(By.xpath("//li[@class='item product product-item']//span[@class='price']"));
+        List<WebElement> productsElement = getDriver(BASE_URL).findElements(By.xpath("//li[@class='item product product-item']"));
+        List<WebElement> pricesElements = getDriver(BASE_URL).findElements(By.xpath("//li[@class='item product product-item']//span[@class='price']"));
         List<Double> prices = new ArrayList<>();
         for(WebElement price : pricesElements) {
             prices.add(

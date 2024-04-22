@@ -8,6 +8,7 @@ import runner.BaseTest;
 import java.util.regex.Pattern;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import static runner.TestData.BASE_URL;
 
 public class NavigationPlaywrightPageTest extends BaseTest {
 
@@ -15,7 +16,7 @@ public class NavigationPlaywrightPageTest extends BaseTest {
 
     @Test
     void testNavigateToMenuItems() {
-        getDriver().quit();
+        getDriver(BASE_URL).quit();
         Page page = getPage();
         page.navigate(url);
 

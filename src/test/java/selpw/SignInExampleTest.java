@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import static runner.TestData.BASE_URL;
 
 public class SignInExampleTest extends BaseTest {
 
@@ -40,15 +41,15 @@ public class SignInExampleTest extends BaseTest {
 
     @Test
     public void testSignInSelenium() throws InterruptedException {
-        getDriver().get("https://magento.softwaretestingboard.com");
-        getDriver().findElement(By.linkText("Sign In")).click();
+        getDriver(BASE_URL).get("https://magento.softwaretestingboard.com");
+        getDriver(BASE_URL).findElement(By.linkText("Sign In")).click();
 
-        getDriver().findElement(By.id("email")).sendKeys("test+123@test.com");
-        getDriver().findElement(By.id("pass")).sendKeys("Tester123");
-        getDriver().findElement(By.id("send2")).click();
+        getDriver(BASE_URL).findElement(By.id("email")).sendKeys("test+123@test.com");
+        getDriver(BASE_URL).findElement(By.id("pass")).sendKeys("Tester123");
+        getDriver(BASE_URL).findElement(By.id("send2")).click();
         Thread.sleep(1000);
 
-        WebElement element = getDriver().findElement(By.xpath("//div[@class='panel header']//span[@class='logged-in']"));
+        WebElement element = getDriver(BASE_URL).findElement(By.xpath("//div[@class='panel header']//span[@class='logged-in']"));
 
         Assert.assertTrue(element.isDisplayed());
     }

@@ -19,8 +19,8 @@ public class OBVerifyDescendingSortByPriceTest extends BaseTest {
 
     private void openMenTopsPageSelenium() {
         openBaseUrlSelenium();
-        getDriver().findElement(By.linkText("Men")).click();
-        getDriver().findElement(By.linkText("Tops")).click();
+        getDriver(BASE_URL).findElement(By.linkText("Men")).click();
+        getDriver(BASE_URL).findElement(By.linkText("Tops")).click();
     }
 
     private Locator textExact(String text) {
@@ -73,11 +73,11 @@ public class OBVerifyDescendingSortByPriceTest extends BaseTest {
     @Test
     public void testVerifyDescendingSortByPriceOBSelenium() {
         openMenTopsPageSelenium();
-        getDriver().findElement(By.xpath("//option[@value='price']")).click();
-        getDriver().findElement(By.linkText("Set Descending Direction")).click();
+        getDriver(BASE_URL).findElement(By.xpath("//option[@value='price']")).click();
+        getDriver(BASE_URL).findElement(By.linkText("Set Descending Direction")).click();
 
-        List<WebElement> productElements = getDriver().findElements(By.xpath("//li[@class='item product product-item']"));
-        List<WebElement> pricesElements = getDriver().findElements(By.xpath("//li[@class='item product product-item']//span[@class='price']"));
+        List<WebElement> productElements = getDriver(BASE_URL).findElements(By.xpath("//li[@class='item product product-item']"));
+        List<WebElement> pricesElements = getDriver(BASE_URL).findElements(By.xpath("//li[@class='item product product-item']//span[@class='price']"));
 
         List<Double> prices = new ArrayList<>();
         for (WebElement price : pricesElements) {

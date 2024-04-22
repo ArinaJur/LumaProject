@@ -9,6 +9,8 @@ import org.testng.annotations.Test;
 import selenium.pp.page.MainPage;
 import runner.BaseTest;
 
+import static runner.TestData.BASE_URL;
+
 public class SignUpPageTest extends BaseTest {
 
     private static final Logger logger = LogManager.getLogger(SignUpPageTest.class);
@@ -16,7 +18,7 @@ public class SignUpPageTest extends BaseTest {
     @BeforeMethod
     public void beforeClass() {
         getPage().close();
-        mainPage = new MainPage(getDriver());
+        mainPage = new MainPage(getDriver(BASE_URL));
     }
 
     private MainPage mainPage;

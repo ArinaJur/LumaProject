@@ -12,6 +12,8 @@ import java.nio.file.Paths;
 
 import java.util.List;
 
+import static runner.TestData.BASE_URL;
+
 public abstract class BaseTest {
     private WebDriver driver;
     private final Playwright playwright = Playwright.create();
@@ -65,7 +67,7 @@ public abstract class BaseTest {
         }
     }
 
-    public WebDriver getDriver() {
+    public WebDriver getDriver(String baseUrl) {
         return driver;
     }
 
@@ -74,15 +76,15 @@ public abstract class BaseTest {
     }
 
     public void openBaseUrlSelenium() {
-        getDriver().get(TestData.BASE_URL);
-        List<WebElement> consentElements = getDriver().findElements(By.xpath("//p[text()='Consent']"));
+        getDriver(BASE_URL).get(BASE_URL);
+        List<WebElement> consentElements = getDriver(BASE_URL).findElements(By.xpath("//p[text()='Consent']"));
         if(!consentElements.isEmpty()) {
-            getDriver().findElement(By.xpath("//p[text()='Consent']")).click();
+            getDriver(BASE_URL).findElement(By.xpath("//p[text()='Consent']")).click();
         }
     }
 
     public void openBaseUrlPW(){
-        getPage().navigate(TestData.BASE_URL);
+        getPage().navigate(BASE_URL);
         if(getPage().locator("//p[text()='Consent']").count() != 0) {
             getPage().locator("//p[text()='Consent']").click();
         }
