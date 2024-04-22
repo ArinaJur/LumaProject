@@ -67,8 +67,8 @@ public final class BaseUtils {
             }
         }
 
-       // WebDriverManager.chromedriver().setup(); //chrome.driver
-        System.setProperty("webdriver.chrome.driver","C:\\Users\\Dina\\IdeaProjectsMyFirstStepsInJava\\LumaProject\\chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
+
     }
 
     static Properties getProperties() {
