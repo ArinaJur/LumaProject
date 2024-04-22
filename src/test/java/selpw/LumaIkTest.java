@@ -5,11 +5,8 @@ import com.microsoft.playwright.Page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-import runner.BaseTest;
 import runner.PWLocator;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +71,7 @@ public class LumaIkTest extends PWLocator {
     }
 
     @Test()
-    public void testWomenDropDownButtonsClickablePW1()  {
+    public void testWomenDropDownButtonsClickablePW()  {
         Locator listWomenDRopDown = css(".navigation li.nav-2>ul>li>a");
         Locator logo = css(".logo");
         Locator headerWomensSectons = css(".page-title");
