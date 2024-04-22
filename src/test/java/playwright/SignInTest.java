@@ -44,7 +44,7 @@ public class SignInTest extends BaseTest {
 
         //getPage().getByLabel("Consent",new Page.GetByLabelOptions());
 
-        logPageInfo(getPage());
+//        logPageInfo(getPage());
 
 /*
         Locator welcomeElement = getPage().locator("//div[@class='panel header']//ul[@class='header links']//li[@class='greet welcome']//span[@class='logged-in']");
