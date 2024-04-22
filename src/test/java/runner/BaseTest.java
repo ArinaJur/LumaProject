@@ -89,7 +89,7 @@ public abstract class BaseTest {
 
     public void openBaseUrlSelenium() {
         getDriver().get(TestData.BASE_URL);
-        LoggerUtils.logInfo("Base Url Selenium opened");
+        LoggerUtils.logInfo("Base URL Selenium opened");
 
         List<WebElement> consentElements = getDriver().findElements(By.xpath("//p[text()='Consent']"));
         if(!consentElements.isEmpty()) {
@@ -99,7 +99,7 @@ public abstract class BaseTest {
 
     public void openBaseUrlPW(){
         getPage().navigate(TestData.BASE_URL);
-        LoggerUtils.logInfo("Base Url RW opened");
+        LoggerUtils.logInfo("Base URL PW opened");
 
         if(getPage().locator("//p[text()='Consent']").count() != 0) {
             getPage().locator("//p[text()='Consent']").click();
