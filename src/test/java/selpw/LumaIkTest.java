@@ -4,28 +4,35 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import runner.PWLocator;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-public class LumaIkTest extends BaseTest {
-    private static final Logger logger = LoggerFactory.getLogger(LumaIkTest.class);
-    private final String Base_URL = "https://magento.softwaretestingboard.com/";
-    private final List<String> ExpectedNamesWomenSection = List.of("Tops", "Bottoms");
-    private final List<String> ExpectedNamesTopsSection = List.of("Jackets", "Hoodies & Sweatshirts", "Tees", "Bras & Tanks");
-    private final List<String> ExpectedNamesBottomsSection = List.of("Pants", "Shorts");
+public class LumaIkTest extends PWLocator {
+
+    private final String BASE_URL = "https://magento.softwaretestingboard.com/";
+    private final List<String> EXPECTED_NAMES_WOMEN_DROPDOWN = List.of("Tops", "Bottoms");
+    private final List<String> EXPECTED_NAMES_TOPS_WOMEN_DROPDOWN = List.of("Jackets", "Hoodies & Sweatshirts", "Tees", "Bras & Tanks");
+    private final List<String> EXPECTED_NAMES_BOTTOMS_WOMEN_DROPDOWN = List.of("Pants", "Shorts");
+
+    private void openHomePage() {
+        getPage().navigate(BASE_URL);
+    }
+
     @Test
     public void testNavigationBar(){
+
         List<String> expectedListOfNavBar = List.of("What's New", "Women", "Men", "Gear", "Training","Sale");
 
         getDriver().get("https://magento.softwaretestingboard.com/");
+
         List<WebElement> listOfNavBar = getDriver().findElements(By.cssSelector(".nav-sections .navigation >ul>li>a"));
         List<String> namesOfNavbar = new ArrayList<>();
         for(WebElement text : listOfNavBar) {
@@ -48,52 +55,64 @@ public class LumaIkTest extends BaseTest {
     }
 
     @Test
-    public void testNamesWomenSectionPW() throws InterruptedException {
-        getPage().navigate(Base_URL);
-        getPage().getByText("Women").hover();
-        Locator listWomenSection = getPage().locator("li.nav-2>ul>li>a.ui-corner-all");
-        List<String> namesWomensSection = listWomenSection.allInnerTexts();
-        Locator listTopSection = getPage().locator(".nav-2-1>ul>li>a>span");
-        List<String>namesTopSection = listTopSection.allInnerTexts();
-        Locator listBottomosSection = getPage().locator(".nav-2-2>ul>li");
-        List<String> namesBottomsSection = listBottomosSection.allInnerTexts();
+    public void testNamesWomenDropDownPW() throws InterruptedException {
+        openHomePage();
+        textExact("Women").hover();
+        Locator listWomenDropDown = css("li.nav-2>ul>li>a.ui-corner-all");
+        List<String> namesWomensDropDown = getListNames(listWomenDropDown);
+        Locator listTopDropDown = css(".nav-2-1>ul>li>a>span");
+        List<String>namesTopDropDown = getListNames(listTopDropDown);
+        Locator listBottomosDropDown = css(".nav-2-2>ul>li");
+        List<String> namesBottomsSection = getListNames(listBottomosDropDown);
 
-        assertThat(listWomenSection).hasCount(2);
-        assertThat(listTopSection).hasCount(4);
-        assertThat(listBottomosSection).hasCount(2);
-        Assert.assertEquals(namesWomensSection, ExpectedNamesWomenSection);
-        Assert.assertEquals(namesBottomsSection, ExpectedNamesBottomsSection);
-        Assert.assertEquals(namesTopSection, ExpectedNamesTopsSection);
+        assertThat(listWomenDropDown).hasCount(2);
+        assertThat(listTopDropDown).hasCount(4);
+        assertThat(listBottomosDropDown).hasCount(2);
+        Assert.assertEquals(namesWomensDropDown, EXPECTED_NAMES_WOMEN_DROPDOWN);
+        Assert.assertEquals(namesBottomsSection, EXPECTED_NAMES_BOTTOMS_WOMEN_DROPDOWN);
+        Assert.assertEquals(namesTopDropDown, EXPECTED_NAMES_TOPS_WOMEN_DROPDOWN);
     }
 
-    @Ignore
-    @Test
-    public void testWomenSectionButtonsClickablePW1() throws InterruptedException {
-        getPage().navigate(Base_URL);
-        Locator listWomenSection = getPage().locator(".navigation li.nav-2>ul>li>a");
-        Locator headerWomensSectons = getPage().locator(".page-title");
+    @Test()
+    public void testWomenDropDownButtonsClickablePW1()  {
+        Locator listWomenDRopDown = css(".navigation li.nav-2>ul>li>a");
+        Locator logo = css(".logo");
+        Locator headerWomensSectons = css(".page-title");
+        Locator listTopDropDown = css("li.nav-2-1>ul>li>a");
+        String[] hrefsWomenDropDown = {"https://magento.softwaretestingboard.com/women/tops-women.html", "https://magento.softwaretestingboard.com/women/bottoms-women.html"};
+        String[] hrefsWomenTopsDropDown = {"https://magento.softwaretestingboard.com/women/tops-women/jackets-women.html", "https://magento.softwaretestingboard.com/women/tops-women/hoodies-and-sweatshirts-women.html",
+                "https://magento.softwaretestingboard.com/women/tops-women/tees-women.html", "https://magento.softwaretestingboard.com/women/tops-women/tanks-women.html"};
 
-        for (int i = 0; i < listWomenSection.count(); i++) {
-            getPage().getByText("Women").hover();
-            listWomenSection.nth(i).click();
+        openHomePage();
+
+        for (int i = 0; i < listWomenDRopDown.count(); i++) {
+            textExact("Women").isVisible();
+            textExact("Women").hover();
+            createLocatorWithHrefLink(hrefsWomenDropDown, i).click();
             String text = headerWomensSectons.innerText();
-            Assert.assertEquals(text, ExpectedNamesWomenSection.get(i));
-            getPage().locator(".logo").click();
-            assertThat(getPage()).hasURL(Base_URL);
+
+            Assert.assertEquals(text, EXPECTED_NAMES_WOMEN_DROPDOWN.get(i));
+
+            logo.click();
+
+            assertThat(getPage()).hasURL(BASE_URL);
         }
 
-        Locator listTopSection = getPage().locator("li.nav-2-1>ul>li>a");
+        for (int i = 0; i < listTopDropDown.count(); i++) {
+            textExact("Women").isVisible();
+            textExact("Women").hover();
+            createLocatorWithHrefLink(hrefsWomenDropDown,0).isVisible();
+            createLocatorWithHrefLink(hrefsWomenDropDown,0).hover();
+            createLocatorWithHrefLink(hrefsWomenTopsDropDown, i).click();
+            String actualHeader = headerWomensSectons.innerText();
 
-        for ( int i = 0; i < listTopSection.count(); i++ ) {
-            getPage().getByText("Women").hover();
-            getPage().locator("#ui-id-9>.ui-icon-carat-1-e").hover();
-            Thread.sleep(1000);
-            listTopSection.nth(i).click();
-            String text = headerWomensSectons.innerText();
-            Assert.assertEquals(text, ExpectedNamesTopsSection.get(i));
-            getPage().locator(".logo").click();
-            assertThat(getPage()).hasURL(Base_URL);
+            Assert.assertEquals(actualHeader, EXPECTED_NAMES_TOPS_WOMEN_DROPDOWN.get(i));
+
+            logo.click();
+
+            assertThat(getPage()).hasURL(BASE_URL);
         }
     }
-
 }
+
+
