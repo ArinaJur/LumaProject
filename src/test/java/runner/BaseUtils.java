@@ -8,6 +8,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import reporter.LoggerUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,8 +40,8 @@ public final class BaseUtils {
                 try {
                     InputStream inputStream = BaseUtils.class.getClassLoader().getResourceAsStream("local.properties");
                     if (inputStream == null) {
-                        System.out.println("ERROR: The \u001B[31mlocal.properties\u001B[0m file not found in src/test/resources/ directory.");
-                        System.out.println("You need to create it from local.properties.TEMPLATE file.");
+                        LoggerUtils.logError("ERROR: The \u001B[31mlocal.properties\u001B[0m file not found in src/test/resources/ directory.");
+                        LoggerUtils.logInfo("You need to create it from local.properties.TEMPLATE file.");
                         System.exit(1);
                     }
                     properties.load(inputStream);
@@ -68,6 +69,7 @@ public final class BaseUtils {
         }
 
         WebDriverManager.chromedriver().setup();
+
     }
 
     static Properties getProperties() {
