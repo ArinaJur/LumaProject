@@ -20,8 +20,6 @@ public abstract class BaseTest {
     private final Browser browser = BaseUtils.createPWBrowser(playwright);
     private BrowserContext context;
     private Page page;
-    final String consentButtonSelector = "body > div.fc-consent-root > div.fc-dialog-container > div.fc-dialog.fc-choice-dialog > div.fc-footer-buttons-container > div.fc-footer-buttons > button.fc-button.fc-cta-consent.fc-primary-button > p";
-
 
     @BeforeSuite
     void createPlaywrightBrowser() {
@@ -103,19 +101,8 @@ public abstract class BaseTest {
     public void openBaseUrlPW() {
         getPage().navigate(TestData.BASE_URL);
         LoggerUtils.logInfo("Base URL PW opened");
-        if (getPage().isVisible(consentButtonSelector)) {
-            handleOverlays(getPage());
-        } else {
-            LoggerUtils.logInfo("No overlays found");
+        if (getPage().isVisible("//p[text()='Consent']")) {
+            getPage().click("//p[text()='Consent']");
         }
-    }
-
-    private void handleOverlays(Page page) {
-        page.waitForSelector(consentButtonSelector);
-
-        if (!page.isVisible(consentButtonSelector)) {
-            return;
-        }
-        page.click(consentButtonSelector);
     }
 }
