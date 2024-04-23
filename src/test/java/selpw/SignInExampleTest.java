@@ -14,10 +14,9 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 
 public class SignInExampleTest extends BaseTest {
 
-    @Ignore
     @Test
     public void testSingInPW() {
-        getPage().navigate("https://magento.softwaretestingboard.com");
+        openBaseUrlPW();
 
         getPage().getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Sign In ")).click();
 
@@ -40,7 +39,7 @@ public class SignInExampleTest extends BaseTest {
 
     @Test
     public void testSignInSelenium() throws InterruptedException {
-        getDriver().get("https://magento.softwaretestingboard.com");
+        openBaseUrlSelenium();
         getDriver().findElement(By.linkText("Sign In")).click();
 
         getDriver().findElement(By.id("email")).sendKeys("test+123@test.com");

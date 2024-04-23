@@ -16,7 +16,7 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 public class AJVerifyDescendingSortByPriceTest extends PWLocator {
 
     private void openMenTopsPageSelenium() {
-        getDriver().get(TestData.BASE_URL);
+        openBaseUrlSelenium();
         getDriver().findElement(By.linkText("Men")).click();
         getDriver().findElement(By.linkText("Tops")).click();
     }
@@ -51,7 +51,7 @@ public class AJVerifyDescendingSortByPriceTest extends PWLocator {
 //    }
 
     private void openMenTopsPagePW() {
-        navigate(TestData.BASE_URL);
+        openBaseUrlPW();
         textExact("Men").click();
         link("Tops").click();
     }

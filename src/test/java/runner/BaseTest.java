@@ -1,6 +1,7 @@
 package runner;
 
 import com.microsoft.playwright.*;
+import com.microsoft.playwright.options.AriaRole;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,10 +20,12 @@ public abstract class BaseTest {
     private final Browser browser = BaseUtils.createPWBrowser(playwright);
     private BrowserContext context;
     private Page page;
+    final String consentButtonSelector = "body > div.fc-consent-root > div.fc-dialog-container > div.fc-dialog.fc-choice-dialog > div.fc-footer-buttons-container > div.fc-footer-buttons > button.fc-button.fc-cta-consent.fc-primary-button > p";
+
 
     @BeforeSuite
     void createPlaywrightBrowser() {
-        if(!browser.isConnected()) {
+        if (!browser.isConnected()) {
             LoggerUtils.logFatal("FATAL: PWBrowser is not created");
             System.exit(1);
         }
@@ -73,7 +76,7 @@ public abstract class BaseTest {
             browser.close();
             LoggerUtils.logInfo("Browser closed");
         }
-        if(playwright != null) {
+        if (playwright != null) {
             playwright.close();
             LoggerUtils.logInfo("Playwright closed");
         }
@@ -92,17 +95,27 @@ public abstract class BaseTest {
         LoggerUtils.logInfo("Base URL Selenium opened");
 
         List<WebElement> consentElements = getDriver().findElements(By.xpath("//p[text()='Consent']"));
-        if(!consentElements.isEmpty()) {
+        if (!consentElements.isEmpty()) {
             getDriver().findElement(By.xpath("//p[text()='Consent']")).click();
         }
     }
 
-    public void openBaseUrlPW(){
+    public void openBaseUrlPW() {
         getPage().navigate(TestData.BASE_URL);
         LoggerUtils.logInfo("Base URL PW opened");
-
-        if(getPage().locator("//p[text()='Consent']").count() != 0) {
-            getPage().locator("//p[text()='Consent']").click();
+        if (getPage().isVisible(consentButtonSelector)) {
+            handleOverlays(getPage());
+        } else {
+            LoggerUtils.logInfo("No overlays found");
         }
+    }
+
+    private void handleOverlays(Page page) {
+        page.waitForSelector(consentButtonSelector);
+
+        if (!page.isVisible(consentButtonSelector)) {
+            return;
+        }
+        page.click(consentButtonSelector);
     }
 }
