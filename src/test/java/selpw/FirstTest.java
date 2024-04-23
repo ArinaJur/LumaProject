@@ -19,7 +19,7 @@ public class FirstTest extends BaseTest {
 
     @Test
     public void testPW() {
-        getPage().navigate("https://magento.softwaretestingboard.com");
+        openBaseUrlPW();
 
         assertThat(getPage()).hasURL("https://magento.softwaretestingboard.com/");
         assertThat(getPage()).hasTitle("Home Page");

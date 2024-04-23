@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import reporter.LoggerUtils;
 
 import java.lang.reflect.Method;
 import java.nio.file.Paths;
@@ -24,6 +25,7 @@ public abstract class BaseTest {
     @BeforeSuite
     void createPlaywrightBrowser() {
         if(!browser.isConnected()) {
+            LoggerUtils.logFatal("FATAL: PWBrowser is not created");
             System.exit(1);
         }
     }
@@ -31,18 +33,27 @@ public abstract class BaseTest {
     @BeforeMethod
     protected void beforeMethod() {
         driver = BaseUtils.createDriver();
+        LoggerUtils.logInfo("Browser instance started");
+        LoggerUtils.logInfo("Selenium Test started");
+
         context = BaseUtils.createContext(browser);
+        LoggerUtils.logInfo("Context created");
+
         page = context.newPage();
+        LoggerUtils.logInfo("Page created");
+        LoggerUtils.logInfo("PW Test started");
     }
 
     @AfterMethod
     protected void afterMethod(ITestResult testResult, Method testMethod) {
         if (driver != null) {
             driver.quit();
+            LoggerUtils.logInfo("Browser closed");
         }
 
         if (page != null) {
             page.close();
+            LoggerUtils.logInfo("Page closed");
         }
 
         if (!testResult.isSuccess()) {
@@ -54,6 +65,7 @@ public abstract class BaseTest {
 
         if (context != null) {
             context.close();
+            LoggerUtils.logInfo("Context closed");
         }
     }
 
@@ -61,9 +73,11 @@ public abstract class BaseTest {
     void closeBrowser() {
         if (browser.isConnected()) {
             browser.close();
+            LoggerUtils.logInfo("Browser closed");
         }
         if(playwright != null) {
             playwright.close();
+            LoggerUtils.logInfo("Playwright closed");
         }
     }
 
@@ -76,15 +90,19 @@ public abstract class BaseTest {
     }
 
     public void openBaseUrlSelenium() {
-        getDriver(BASE_URL).get(BASE_URL);
-        List<WebElement> consentElements = getDriver(BASE_URL).findElements(By.xpath("//p[text()='Consent']"));
+        getDriver().get(TestData.BASE_URL);
+        LoggerUtils.logInfo("Base URL Selenium opened");
+
+        List<WebElement> consentElements = getDriver().findElements(By.xpath("//p[text()='Consent']"));
         if(!consentElements.isEmpty()) {
             getDriver(BASE_URL).findElement(By.xpath("//p[text()='Consent']")).click();
         }
     }
 
     public void openBaseUrlPW(){
-        getPage().navigate(BASE_URL);
+        getPage().navigate(TestData.BASE_URL);
+        LoggerUtils.logInfo("Base URL PW opened");
+
         if(getPage().locator("//p[text()='Consent']").count() != 0) {
             getPage().locator("//p[text()='Consent']").click();
         }
