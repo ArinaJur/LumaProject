@@ -30,7 +30,6 @@ public class AINavigateToGearPageTest extends BaseTest {
         for (WebElement gearLink : gearLinks) {
             categoriesLinkNames.add(gearLink.getText());
         }
-
         Assert.assertEquals(categoriesLinkNames, expectedCategories);
     }
 }
