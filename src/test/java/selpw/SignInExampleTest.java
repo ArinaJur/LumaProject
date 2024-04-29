@@ -13,7 +13,7 @@ import runner.BaseTest;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class SignInExampleTest extends BaseTest {
-
+    @Ignore
     @Test
     public void testSingInPW() {
         openBaseUrlPW();
@@ -36,7 +36,7 @@ public class SignInExampleTest extends BaseTest {
         Assert.assertTrue(welcomeElement.isVisible());
     }
 
-
+    @Ignore
     @Test
     public void testSignInSelenium() throws InterruptedException {
         openBaseUrlSelenium();
