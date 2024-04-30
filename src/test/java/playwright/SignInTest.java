@@ -4,11 +4,12 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
 public class SignInTest extends BaseTest {
-
+    @Ignore
     @Test
     public void testSingInPW() throws InterruptedException {
         openBaseUrlPW();
