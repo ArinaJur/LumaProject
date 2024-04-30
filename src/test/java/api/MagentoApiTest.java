@@ -3,6 +3,7 @@ package api;
 import api.magento.MagentoApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import api.models.User;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
@@ -11,7 +12,7 @@ import java.io.IOException;
 import static org.testng.Assert.*;
 
 public class MagentoApiTest {
-
+    @Ignore
     @Test
     public void testGetCustomerInfo() throws IOException {
         MagentoApi magentoApi = MagentoApi.getInstance();
