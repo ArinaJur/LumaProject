@@ -1,7 +1,6 @@
 package selenium.pages;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import runner.BaseTest;
@@ -11,11 +10,6 @@ import static vfespw.runner.TestData.PASSWORD;
 import static vfespw.runner.TestData.MEN;
 
 public class CartTest extends BaseTest {
-
-    @BeforeMethod
-    public void beforeClass() {
-        getPage().close();
-    }
 
     @Test
     public void testCartPricing() {

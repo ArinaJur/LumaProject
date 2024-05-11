@@ -10,8 +10,8 @@ public class TestData {
     public static final String USER_NAME = ProjectUtils.getProperties().getProperty("username");
     public static final String FIRST_NAME = "John";
     public static final String LAST_NAME = "Doe";
-    public static final String EMAIL = ProjectUtils.getProperties().getProperty("username");
-    public static final String PASSWORD = ProjectUtils.getProperties().getProperty("password");
+    public static final String EMAIL = "tester123456789@i.com";
+    public static final String PASSWORD = "tester123456789@i.comtester123456789@i.com";
     public static final String FAILED_LOGIN_ERROR_MESSAGE = "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.";
     public static final String EMPTY_CARD_MESSAGE = "You have no items in your shopping cart.";
 }

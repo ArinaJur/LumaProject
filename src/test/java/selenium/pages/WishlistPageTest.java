@@ -12,11 +12,6 @@ import static vfespw.runner.TestData.MEN;
 
 public class WishlistPageTest extends BaseTest {
 
-    @BeforeMethod
-    public void beforeClass() {
-        getPage().close();
-    }
-
     @Test
     public void testAddRandomProductToWishlist() {
         WishlistPage wishlistPage = getLandingPage()
