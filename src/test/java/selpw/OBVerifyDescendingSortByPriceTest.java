@@ -126,7 +126,7 @@ public class OBVerifyDescendingSortByPriceTest extends BaseTest {
 
         assertThat(xpath("//li[@class='item product product-item']")).hasCount(prices.size());
 
-        Assert.assertTrue(prices.get(0) >= prices.get(prices.size() - 1), "The products displayed NOT in descending order of price");
+//        Assert.assertTrue(prices.get(0) >= prices.get(prices.size() - 1), "The products displayed NOT in descending order of price");
         Assert.assertFalse(prices.get(0) < prices.get(prices.size() - 1), "The price of first product by descending order list is LESS than the price of last product");
 
         double maxPrice = getMax(prices);

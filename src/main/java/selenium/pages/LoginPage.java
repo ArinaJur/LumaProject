@@ -1,4 +1,4 @@
-package selenium.pp.page;
+package selenium.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,11 +20,11 @@ public class LoginPage extends BasePage {
     @FindBy(id = "send2")
     private WebElement signInBtn;
 
-    public MainPage login(String email, String password) {
+    public LandingPage login(String email, String password) {
         fillEmailField(email);
         fillPasswordField(password);
         clickSignInButton();
-        return new MainPage(getDriver());
+        return new LandingPage(getDriver());
     }
 
     private void fillEmailField(String email) {
