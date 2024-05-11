@@ -32,7 +32,7 @@ public class UserLoginTest extends BaseLocators {
 
     @Test
     public void test_UserNameAfterLogin()  {
-        final String expectedName = "Welcome, " +  TestData.USER_NAME + "!";
+        final String expectedName = "Welcome, " +  TestData.EMAIL + "!";
         final String email = ProjectUtils.getProperties().getProperty("email");
         final String password = ProjectUtils.getProperties().getProperty("password");
 

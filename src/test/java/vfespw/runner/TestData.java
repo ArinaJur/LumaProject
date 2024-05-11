@@ -7,7 +7,6 @@ public class TestData {
     public static final String SIGN_OUT_TITLE = "";
     public static final String  MY_ACCOUNT_TITLE = "My Account";
     public static final String MEN = "Men";
-    public static final String USER_NAME = ProjectUtils.getProperties().getProperty("username");
     public static final String FIRST_NAME = "John";
     public static final String LAST_NAME = "Doe";
     public static final String EMAIL = "tester123456789@i.com";
