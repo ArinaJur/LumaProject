@@ -18,7 +18,7 @@ public class CartTest extends BaseTest {
     }
 
     @Test
-    public void cartPricingTest() {
+    public void testCartPricing() {
         final int productQuantity = 3;
         CartPage cartPage = new LandingPage(getDriver())
                 .openLandingPage()
@@ -37,7 +37,7 @@ public class CartTest extends BaseTest {
     }
 
     @Test
-    public void cartQuantityTest() {
+    public void testCartQuantity() {
         final int addedQuantity = 3;
         CartPage cartPage = new LandingPage(getDriver())
                 .openLandingPage()

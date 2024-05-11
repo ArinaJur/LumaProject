@@ -18,7 +18,7 @@ public class WishlistPageTest extends BaseTest {
     }
 
     @Test
-    public void addRandomProductToWishlistTest() {
+    public void testAddRandomProductToWishlist() {
         WishlistPage wishlistPage = getLandingPage()
                 .getNavBar()
                 .selectCategory(MEN)
@@ -28,7 +28,7 @@ public class WishlistPageTest extends BaseTest {
     }
 
     @Test
-    public void addProductToWishlistTest() {
+    public void testAddProductToWishlist() {
         WishlistPage wishlistPage = getLandingPage()
                 .getNavBar()
                 .selectCategory("Men", "Tops", "Tees")
