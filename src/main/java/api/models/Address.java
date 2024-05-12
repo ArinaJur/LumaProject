@@ -165,4 +165,20 @@ public class Address {
                 zipPostalCode,
                 country);
     }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", streetAddress='" + streetAddress + '\'' +
+                ", city='" + city + '\'' +
+                ", region='" + region + '\'' +
+                ", stateProvince='" + stateProvince + '\'' +
+                ", zipPostalCode='" + zipPostalCode + '\'' +
+                ", country='" + country + '\'' +
+                '}';
+    }
 }

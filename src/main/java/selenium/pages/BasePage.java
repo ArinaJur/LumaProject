@@ -1,6 +1,8 @@
-package selenium.pp.page;
+package selenium.pages;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
 public class BasePage {
@@ -15,5 +17,9 @@ public class BasePage {
 
     protected WebDriver getDriver() {
         return driver;
+    }
+
+    public void hover(WebElement element) {
+        new Actions(driver).moveToElement(element).perform();
     }
 }

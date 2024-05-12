@@ -160,4 +160,25 @@ public class User {
         this.setWebsiteId(faker.number().randomDigit());
         this.setDisableAutoGroupChange(faker.number().randomDigit());
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", groupId=" + groupId +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                ", createdIn='" + createdIn + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", storeId=" + storeId +
+                ", websiteId=" + websiteId +
+                ", addresses=" + addresses +
+                ", disableAutoGroupChange=" + disableAutoGroupChange +
+                ", extensionAttributes=" + extensionAttributes +
+                '}';
+    }
 }
+
