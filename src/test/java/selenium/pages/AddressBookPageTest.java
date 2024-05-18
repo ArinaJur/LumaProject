@@ -19,7 +19,6 @@ public class AddressBookPageTest extends BaseTest {
         Address address = new Address();
         MainPage mainPage = new MainPage(getDriver());
 
-        mainPage.openPage();
         mainPage.clickCreateAnAccountButton()
                 .enterFirstName(user.getFirstname())
                 .enterLastName(user.getLastname())

@@ -105,7 +105,7 @@ public class MainPage extends BasePage {
         return contactInformation.getText();
     }
 
-    public void openPage() {
+    private void openPage() {
         getDriver().get(BASE_URL);
     }
 

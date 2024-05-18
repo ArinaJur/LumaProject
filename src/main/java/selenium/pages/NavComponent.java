@@ -3,7 +3,9 @@ package selenium.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 import java.util.HashMap;
@@ -12,6 +14,13 @@ import java.util.Map;
 import static selenium.pages.BasePage.BASE_URL;
 
 public class NavComponent {
+
+    public NavComponent(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    private final String font = "rgba(51, 51, 51, 1)";
 
     @FindBy(css = "#ui-id-18")
     private WebElement navMenBottoms;
@@ -56,10 +65,6 @@ public class NavComponent {
 
     private final WebDriver driver;
 
-    public NavComponent(WebDriver driver) {
-        this.driver = driver;
-    }
-
     public void isClickable(WebElement element, String url) {
         Assert.assertTrue(element.isEnabled(), "Element not clickable!");
         Assert.assertEquals(element.getAttribute("href"), url, "URL not as expected!");
@@ -70,14 +75,21 @@ public class NavComponent {
         Assert.assertEquals(headerElement.getText(), header, "Header text not as expected!");
     }
 
-    public void verifySubNav(WebElement navMenSubmenu) {
+    public void verifySubTopNavUrl() {
         Assert.assertTrue(navMenSubmenu.isDisplayed(), "Submenus not visible!");
         for (String expectedElement : menTopUrls.keySet()) {
             Assert.assertTrue(navMenSubmenu.getText().contains(expectedElement), "Expected element not found!");
         }
     }
 
-    public void verifyDropdownMenu() {
+    public void verifySubBottomsNavUrl() {
+        Assert.assertTrue(navMenBottomsSubmenu.isDisplayed(), "Submenus not visible!");
+        for (String expectedElement : menBottomUrls.keySet()) {
+            Assert.assertTrue(navMenBottomsSubmenu.getText().contains(expectedElement), "Expected element not found!");
+        }
+    }
+
+    public void verifySubDropdownMenu() {
         verifyNavMensTops();
         verifyNavMensBottoms();
     }
@@ -97,13 +109,39 @@ public class NavComponent {
         isClickable(navMenBottoms, menSubUrls.get("Bottoms"));
     }
 
-    public void verifyNavMens(WebElement element, String text) {
+    private void verifyNavMens(WebElement element, String text) {
         verifyNav(element, text);
         isClickable(element, menSubUrls.get(text));
     }
 
-    public void verifyNav(WebElement element, String title) {
+    private void verifyNav(WebElement element, String title) {
         Assert.assertTrue(element.isDisplayed(), "Locator not visible!");
         Assert.assertEquals(element.getText(), title, "Text not as expected!");
+    }
+
+    private void hover(WebElement element) {
+        new Actions(driver).moveToElement(element).perform();
+    }
+
+    public MenPage gotoMenPage() {
+        navMen.click();
+        return new MenPage(driver);
+    }
+
+    public void hoverToMen() {
+        hover(navMen);
+    }
+
+    public void hoverToMenTop() {
+        hover(navMenTops);
+        isActiveColor(navMenTops);
+    }
+
+    public void hoverToMenBottom() {
+        hover(navMenBottoms);
+        isActiveColor(navMenBottoms);
+    }
+    protected void isActiveColor(WebElement element) {
+        Assert.assertEquals(element.getCssValue("color"), font, "Font color not as expected!");
     }
 }

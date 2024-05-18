@@ -28,7 +28,6 @@ public class SignUpPageTest extends BaseTest {
         //logger.info(mainPage.getDriver().getTitle());
 
         User user = new User();
-        mainPage.openPage();
         mainPage.clickCreateAnAccountButton()
                 .enterFirstName(user.getFirstname())
                 .enterLastName(user.getLastname())

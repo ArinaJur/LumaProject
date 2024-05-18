@@ -5,17 +5,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.time.Duration;
 import java.util.List;
 
 public class BasePage {
 
+    public static final String BASE_URL = "https://magento.softwaretestingboard.com";
     private final WebDriver driver;
     private final NavComponent nav;
     private final MiniCard miniCard;
-
-    protected static final String BASE_URL = "https://magento.softwaretestingboard.com/";
     private static final By CART_ICON = By.cssSelector("a.showcart");
     private static final By SUCCESS_MESSAGE = By.cssSelector(".message-success.success.message");
 
@@ -30,6 +32,7 @@ public class BasePage {
         return driver;
     }
 
+
     public void hover(WebElement element) {
         new Actions(driver).moveToElement(element).perform();
     }
@@ -38,7 +41,7 @@ public class BasePage {
         driver.get(url);
     }
 
-    public String getCurrentUrl() {
+    protected String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
 
@@ -119,7 +122,9 @@ public class BasePage {
     }
 
     public void clickOnElement(By locator) {
-        driver.findElement(locator).click();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(locator))
+                .click();
     }
 
     public void addProductToCartWithQty(By sizeLocator, By colorLocator, By qtyLocator, By addToCartButtonLocator, String qty) {
@@ -131,5 +136,21 @@ public class BasePage {
         qtyElement.sendKeys(qty);
         clickOnElement(addToCartButtonLocator);
         isVisibleSuccessMessage();
+    }
+
+    public void verifyMenNav() {
+        nav.hoverToMen();
+        nav.verifyNavMen();
+        nav.verifySubDropdownMenu();
+        nav.hoverToMenTop();
+        nav.verifyNavMensTops();
+        nav.verifySubTopNavUrl();
+        nav.hoverToMenBottom();
+        nav.verifyNavMensBottoms();
+        nav.verifySubBottomsNavUrl();
+    }
+
+    public MenPage gotoMenPage() {
+        return nav.gotoMenPage();
     }
 }
