@@ -7,6 +7,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
+import java.util.List;
+
 public class BasePage {
 
     private final WebDriver driver;
@@ -19,9 +21,9 @@ public class BasePage {
 
     protected BasePage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver, this);
         this.nav = new NavComponent(driver);
         this.miniCard = new MiniCard(driver);
+        PageFactory.initElements(driver, this);
     }
 
     protected WebDriver getDriver() {
@@ -41,84 +43,59 @@ public class BasePage {
     }
 
     public void assertVisibleOfElement(By locator) {
-        WebElement element = driver.findElement(locator);
-        assert element.isDisplayed() : "Element not visible!";
-    }
-
-    public void assertPresentOfElement(By locator) {
-        WebElement element = driver.findElement(locator);
-        assert element != null : "Element not present!";
-    }
-
-    public void isCartIconPresent(By locator) {
-        WebElement element = driver.findElement(locator);
-        assert element != null : "Cart icon not present!";
+        WebElement isDisplayed = driver.findElement(locator);
+        Assert.assertTrue(isDisplayed.isDisplayed(), "Element not visible!");
     }
 
     public void isCartIconClickable(By locator) {
-        WebElement element = driver.findElement(locator);
-        assert element.isEnabled() : "Cart icon not clickable!";
+        boolean isEnabled = driver.findElement(locator).isEnabled();
+        Assert.assertTrue(isEnabled, "Cart icon not clickable!");
     }
 
     public void isCounterNumberPresent(By locator) {
         WebElement element = driver.findElement(locator);
-        assert element != null : "Counter number not present!";
-    }
-
-    public void isCounterNumberVisible(By locator) {
-        WebElement element = driver.findElement(locator);
-        assert element.isDisplayed() : "Counter number not visible!";
+        Assert.assertNotNull(element, "Counter number not present!");
     }
 
     public void addProductToCart(By productLocator, By toCartButtonLocator) {
-        WebElement product = driver.findElement(productLocator);
-        product.click();
-
+        clickOnElement(productLocator);
         WebElement toCartButton = driver.findElement(toCartButtonLocator);
-        assert toCartButton.isDisplayed() && toCartButton.isEnabled() : "Add to Cart button not ready!";
-        toCartButton.click();
+        Assert.assertTrue(toCartButton.isDisplayed() && toCartButton.isEnabled(), "Add to Cart button not ready!");
+        clickOnElement(toCartButtonLocator);
         isVisibleSuccessMessage();
-
         WebElement cartIcon = driver.findElement(CART_ICON);
-        assert cartIcon.isEnabled() : "Cart icon not clickable!";
-        cartIcon.click();
+        Assert.assertNotNull(cartIcon, "Cart icon not present!");
+        Assert.assertTrue(cartIcon.isEnabled(), "Cart icon not clickable!");
+        clickOnElement(CART_ICON);
     }
 
     public void addItemToCart(By sizeLocator, By colorLocator, By addToCartButtonLocator) {
-        driver.findElement(sizeLocator).click();
-        driver.findElement(colorLocator).click();
-        driver.findElement(addToCartButtonLocator).click();
+        clickFirstElement(sizeLocator);
+        clickFirstElement(colorLocator);
+        clickOnElement(addToCartButtonLocator);
     }
 
     public void gotoCartPage(By cartIconLocator) {
-        isCartIconPresent(cartIconLocator);
+        assertVisibleOfElement(cartIconLocator);
         driver.findElement(cartIconLocator).click();
         miniCard.isMiniCartVisible();
         miniCard.clickMiniCart();
     }
 
-    public void scrollToHotSellers(By productsGridLocator) {
-        WebElement element = driver.findElement(productsGridLocator);
-        scrollTo(element);
+    public void scrollTo(By locator) {
+        scrollTo(driver.findElement(locator));
     }
 
     public double getSubtotal(By cartIconLocator, By amountPriceLocator) {
         isCartIconClickable(cartIconLocator);
-        driver.findElement(cartIconLocator).click();
+        clickOnElement(cartIconLocator);
         WebElement amountPrice = driver.findElement(amountPriceLocator);
-        String price = amountPrice.getAttribute("innerText");
-        return Double.parseDouble(price.replace("$", ""));
+        String price = amountPrice.getAttribute("innerText").replace("$", "");
+        return Double.parseDouble(price);
     }
 
-    public void setSize(By sizeLocator) {
-        chooseFirst(driver.findElements(sizeLocator));
-    }
-
-    public void setColor(By colorLocator) {
-        chooseFirst(driver.findElements(colorLocator));
-    }
-
-    private void chooseFirst(java.util.List<WebElement> elements) {
+    public void clickFirstElement(By sizeLocator) {
+        List<WebElement> elements = driver.findElements(sizeLocator);
         if (!elements.isEmpty()) {
             elements.get(0).click();
         }
@@ -127,8 +104,8 @@ public class BasePage {
     public void isVisibleSuccessMessage() {
         WebElement message = driver.findElement(SUCCESS_MESSAGE);
         Assert.assertTrue(message.isDisplayed()
-                && message.getText().contains("You added")
-                && message.getText().contains("to your shopping cart"),
+                        && message.getText().contains("You added")
+                        && message.getText().contains("to your shopping cart"),
                 "Success message not as expected!");
     }
 
@@ -137,22 +114,22 @@ public class BasePage {
                 .executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
-    public static String getText(WebDriver driver, By locator) {
+    public String getInnerText(By locator) {
         return driver.findElement(locator).getAttribute("innerText");
     }
 
-    public static void clickOnLink(WebDriver driver, By locator) {
+    public void clickOnElement(By locator) {
         driver.findElement(locator).click();
     }
 
     public void addProductToCartWithQty(By sizeLocator, By colorLocator, By qtyLocator, By addToCartButtonLocator, String qty) {
-        driver.findElement(sizeLocator).click();
-        driver.findElement(colorLocator).click();
+        clickOnElement(sizeLocator);
+        clickOnElement(colorLocator);
         WebElement qtyElement = driver.findElement(qtyLocator);
         qtyElement.click();
         qtyElement.clear();
         qtyElement.sendKeys(qty);
-        driver.findElement(addToCartButtonLocator).click();
+        clickOnElement(addToCartButtonLocator);
         isVisibleSuccessMessage();
     }
 }

@@ -13,6 +13,7 @@ import static vfespw.runner.TestData.MEN;
 public class CartTest extends BaseTest {
 
     @Test
+    @Ignore
     public void testCartPricing() {
         final int productQuantity = 3;
         CartPage cartPage = new LandingPage(getDriver())

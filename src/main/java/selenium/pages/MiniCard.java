@@ -5,92 +5,81 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.Color;
+import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
 public class MiniCard {
     private final WebDriver driver;
-    private final By action = By.cssSelector("a.action");
-    private final By quantity = By.cssSelector(".details-qty input");
-    private final By message = By.cssSelector(".message-success");
-    private final By miniCart = By.cssSelector("#ui-id-1");
-    private final By miniCartView = By.cssSelector(".action.viewcart");
     private final By update = By.cssSelector("[title='Update']");
+
+    @FindBy(css = ".message-success")
+    private WebElement message;
+
+    @FindBy(css = "#ui-id-1")
+    private WebElement miniCart;
+
+    @FindBy(css = ".action.viewcart")
+    private WebElement miniCartView;
+
+    @FindBy(css = "a.action")
+    private WebElement action;
+
+    @FindBy(css = ".details-qty input")
+    private WebElement quantity;
 
     public MiniCard(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void isMiniCartPresent() {
-        WebElement element = driver.findElement(miniCart);
-        Assert.assertTrue(element.isDisplayed(), "Mini cart not present!");
-    }
-
     public void isMiniCartVisible() {
-        WebElement element = driver.findElement(miniCart);
-        Assert.assertTrue(element.isDisplayed(), "Mini cart not visible!");
-    }
-
-    public void isMiniCartViewPresent() {
-        WebElement element = driver.findElement(miniCartView);
-        Assert.assertTrue(element.isDisplayed(), "Mini cart view not present!");
+        Assert.assertTrue(miniCart.isDisplayed(), "Mini cart not visible!");
     }
 
     public void isMiniCartViewVisible() {
-        WebElement element = driver.findElement(miniCartView);
-        Assert.assertTrue(element.isDisplayed(), "Mini cart view not visible!");
+        Assert.assertTrue(miniCartView.isDisplayed(), "Mini cart view not visible!");
     }
 
     public void isMiniCartHaveLink(String cartUrl) {
-        WebElement element = driver.findElement(miniCartView);
-        Assert.assertEquals(element.getAttribute("href"), cartUrl,
-                "Mini cart view href not as expected!");
+        Assert.assertEquals(miniCartView.getAttribute("href"), cartUrl, "Mini cart view href not as expected!");
     }
 
     public void checkColorInTheMiniCart(String color) {
-        WebElement element = driver.findElement(action);
         String expectedColor = Color.fromString(color).asRgba();
-        Assert.assertEquals(element.getCssValue("color"), expectedColor,
-                "Color not as expected!");
+        Assert.assertEquals(action.getCssValue("color"), expectedColor, "Color not as expected!");
     }
 
     public void checkSizeColorAndProductNameAreCorrect(By seeDetailsLocator, By sizeLocator, String size, By colorLocator, String color, By nameItemLocator, String name) {
         driver.findElement(seeDetailsLocator).click();
-        WebElement sizeElement = driver.findElement(sizeLocator);
-        WebElement colorElement = driver.findElement(colorLocator);
-        WebElement nameElement = driver.findElement(nameItemLocator);
-
-        Assert.assertEquals(sizeElement.getText(), size, "Size not as expected!");
-        Assert.assertEquals(colorElement.getText(), color, "Color not as expected!");
-        Assert.assertEquals(nameElement.getText(), name, "Product name not as expected!");
+        Assert.assertEquals(getText(sizeLocator), size, "Size not as expected!");
+        Assert.assertEquals(getText(colorLocator), color, "Color not as expected!");
+        Assert.assertEquals(getText(nameItemLocator), name, "Product name not as expected!");
     }
 
     public void changeQty(String qty) {
-        WebElement qtyElement = driver.findElement(quantity);
-        qtyElement.click();
-        qtyElement.sendKeys(Keys.BACK_SPACE + qty);
+        quantity.click();
+        quantity.sendKeys(Keys.BACK_SPACE + qty);
         driver.findElement(update).click();
     }
 
     public void shouldBeQuantityChange(String qty) {
-        WebElement qtyElement = driver.findElement(quantity);
-        Assert.assertEquals(qtyElement.getAttribute("value"), qty, "Quantity not as expected!");
+        Assert.assertEquals(quantity.getAttribute("value"), qty, "Quantity not as expected!");
     }
 
     public void shouldBeSuccessMessage() {
-        WebElement messageElement = driver.findElement(message);
-        Assert.assertTrue(messageElement.isDisplayed(), "Success message not visible!");
+        Assert.assertTrue(message.isDisplayed(), "Success message not visible!");
     }
 
-    public void shouldBeChangeSubtotal(By priceItemLocator, String price, By cartSubtotalLocator, String total) {
-        WebElement priceElement = driver.findElement(priceItemLocator);
-        WebElement subtotalElement = driver.findElement(cartSubtotalLocator);
-        Assert.assertEquals(priceElement.getText(), price, "Price not as expected!");
-        Assert.assertEquals(subtotalElement.getText(), total, "Subtotal not as expected!");
+    public void shouldBeChangeSubtotal(By priceItem, String price, By cartSubtotal, String total) {
+        Assert.assertEquals(getText(priceItem), price, "Price not as expected!");
+        Assert.assertEquals(getText(cartSubtotal), total, "Subtotal not as expected!");
     }
 
     public void clickMiniCart() {
-        WebElement miniCartElement = driver.findElement(miniCart);
-        assert miniCartElement.isEnabled() : "Mini cart not clickable!";
-        miniCartElement.click();
+        Assert.assertTrue(miniCart.isEnabled(), "Mini cart not clickable!");
+        miniCart.click();
+    }
+
+    private String getText(By locator) {
+        return driver.findElement(locator).getText();
     }
 }

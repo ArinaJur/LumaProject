@@ -9,8 +9,7 @@ import org.testng.Assert;
 
 public class AddressBookPage extends BasePage {
 
-    public AddressBookPage(
-            WebDriver driver) {
+    public AddressBookPage(WebDriver driver) {
         super(driver);
     }
 
