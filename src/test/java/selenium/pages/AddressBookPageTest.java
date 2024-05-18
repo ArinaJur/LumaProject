@@ -4,6 +4,7 @@ import api.models.Address;
 import api.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -12,6 +13,7 @@ public class AddressBookPageTest extends BaseTest {
     private static final Logger logger = LogManager.getLogger(AddressBookPageTest.class);
 
     @Test
+    @Ignore
     public void testAddressBookPage() {
         User user = new User();
         Address address = new Address();

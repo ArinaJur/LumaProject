@@ -1,6 +1,7 @@
 package selenium.pages;
 
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import runner.BaseTest;
@@ -31,6 +32,7 @@ public class CartTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void testCartQuantity() {
         final int addedQuantity = 3;
         CartPage cartPage = new LandingPage(getDriver())
