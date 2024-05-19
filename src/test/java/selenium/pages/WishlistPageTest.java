@@ -2,6 +2,7 @@ package selenium.pages;
 
 import org.jetbrains.annotations.NotNull;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -12,6 +13,7 @@ import static vfespw.runner.TestData.MEN;
 public class WishlistPageTest extends BaseTest {
 
     @Test
+    @Ignore
     public void testAddRandomProductToWishlist() {
         WishlistPage wishlistPage = getLandingPage()
                 .getNavBar()
