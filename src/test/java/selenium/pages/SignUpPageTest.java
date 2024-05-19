@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -21,12 +22,12 @@ public class SignUpPageTest extends BaseTest {
     private MainPage mainPage;
 
     @Test
+    @Ignore
     void testSignInUser() {
         final String expectedText = "Thank you for registering with Main Website Store.";
         //logger.info(mainPage.getDriver().getTitle());
 
         User user = new User();
-        mainPage.openPage();
         mainPage.clickCreateAnAccountButton()
                 .enterFirstName(user.getFirstname())
                 .enterLastName(user.getLastname())

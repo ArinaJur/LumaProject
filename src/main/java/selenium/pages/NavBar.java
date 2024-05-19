@@ -9,6 +9,8 @@ import java.util.List;
 
 public class NavBar extends BasePage {
 
+    private final String URL = "https://magento.softwaretestingboard.com/checkout/cart/";
+
     @FindBy(css = "a.level-top")
     private List<WebElement> categories;
 
@@ -36,7 +38,7 @@ public class NavBar extends BasePage {
     }
 
     public CartPage goToCart() {
-        getDriver().get("https://magento.softwaretestingboard.com/checkout/cart/");
+        getDriver().get(URL);
         return new CartPage(getDriver());
     }
 }

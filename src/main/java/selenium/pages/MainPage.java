@@ -105,7 +105,7 @@ public class MainPage extends BasePage {
         return contactInformation.getText();
     }
 
-    public void openPage() {
+    private void openPage() {
         getDriver().get(BASE_URL);
     }
 
@@ -187,11 +187,11 @@ public class MainPage extends BasePage {
     }
 
     public void checkHref() {
-        Assert.assertEquals(yogaCollectionPromo.getAttribute("href"), BASE_URL + "collections/yoga-new.html");
-        Assert.assertEquals(pantsPromo.getAttribute("href"), BASE_URL + "promotions/pants-all.html");
-        Assert.assertEquals(tShirtsPromo.getAttribute("href"), BASE_URL + "promotions/tees-all.html");
-        Assert.assertEquals(erinRecommendsPromo.getAttribute("href"), BASE_URL + "collections/erin-recommends.html");
-        Assert.assertEquals(performancePromo.getAttribute("href"), BASE_URL + "collections/performance-fabrics.html");
-        Assert.assertEquals(ecoFriendlyPromo.getAttribute("href"), BASE_URL + "collections/eco-friendly.html");
+        Assert.assertEquals(yogaCollectionPromo.getAttribute("href"), BASE_URL + "/collections/yoga-new.html");
+        Assert.assertEquals(pantsPromo.getAttribute("href"), BASE_URL + "/promotions/pants-all.html");
+        Assert.assertEquals(tShirtsPromo.getAttribute("href"), BASE_URL + "/promotions/tees-all.html");
+        Assert.assertEquals(erinRecommendsPromo.getAttribute("href"), BASE_URL + "/collections/erin-recommends.html");
+        Assert.assertEquals(performancePromo.getAttribute("href"), BASE_URL + "/collections/performance-fabrics.html");
+        Assert.assertEquals(ecoFriendlyPromo.getAttribute("href"), BASE_URL + "/collections/eco-friendly.html");
     }
 }
